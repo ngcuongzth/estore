@@ -8,6 +8,7 @@ const GlobalStyles = createGlobalStyle`
         -webkit-tap-highlight-color: transparent;
         font: inherit;
         letter-spacing: 1px ;
+        transition: ${transitions.linear_4};
     }
     body{
         font-family: ${fontFamily};
@@ -21,7 +22,7 @@ const GlobalStyles = createGlobalStyle`
      p, h1, h2, h3, h4, h5, h6{
         overflow-wrap: break-word;
     }
-    p, h5, a,span{
+    p, h5, a{
         font-size: 1rem;
     }
     h4{

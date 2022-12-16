@@ -3,15 +3,17 @@ import { useDispatch } from "react-redux"
 import { closeSidebar } from "../redux/features/sidebarSlice"
 
 
-
-const SingleProduct = () => {
+const Login = () => {
     const dispatch = useDispatch();
     useEffect(()=>{
         dispatch(closeSidebar())
     },[])
-    return (
-        <div>SingleProduct</div>
-    )
+    
+  return (
+    <div>
+      login
+    </div>
+  )
 }
 
-export default SingleProduct
+export default Login

@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import {
   Home, Products, SingleProduct,
   Cart, Checkout, About,
-  Error
+  Error, Login
 } from "./pages"
 import GlobleStyles from "./styled/GlobalStyles"
 import SharedLayout from "./components/SharedLayout/SharedLayout"
@@ -20,6 +20,7 @@ const App = () => {
             <Route path="/store/product/:id" element={<SingleProduct />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
+            <Route path="/login" element={<Login />} />
             <Route path="*" element={<Error />} />
           </Route>
         </Routes>

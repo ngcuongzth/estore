@@ -1,16 +1,19 @@
 import styled from "styled-components"
-import { colors, sizes, transitions, breakpoints } from '../../styled/variables'
+import { colors, sizes, transitions, breakpoints, shadows } from '../../styled/variables'
 import { useEffect, useState } from "react"
 import logo from '../../assets/images/logo.png'
 import { navLinks } from '../../utils/constants'
 import { NavLink, useNavigate } from "react-router-dom"
 import { UserIcon, SearchIcon, CartIcon, BarsIcon } from "../../utils/icons"
 import SearchForm from "../SearchForm"
+import { toggleSidebar } from "../../redux/features/sidebarSlice"
+import { useDispatch } from "react-redux"
 
 const Header = () => {
     const [isShrink, setIsShrink] = useState(false);
     const [isOpenForm, setIsOpenForm] = useState(false);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     useEffect(() => {
         const shrinkHeader = () => {
             if (document.scrollTop > 80 ||
@@ -32,10 +35,13 @@ const Header = () => {
     const closeSearchForm = () => {
         setIsOpenForm(false);
     }
+
     return (
         <Wrapper className={`${isShrink ? "shrink" : ""}`}>
             <Container className="container">
-                <SidebarBtn>
+                <SidebarBtn onClick={()=>{
+                    dispatch(toggleSidebar());
+                }}>
                     <BarsIcon />
                 </SidebarBtn>
                 <Logo onClick={() => {
@@ -58,10 +64,14 @@ const Header = () => {
                     }}>
                         <SearchIcon />
                     </div>
-                    <div className="user-item">
+                    <div className="user-item" onClick={()=>{
+                        navigate("/login")
+                    }}>
                         <UserIcon />
                     </div>
-                    <div className="user-item">
+                    <div className="user-item" onClick={()=>{
+                        navigate("/cart")
+                    }}>
                         <CartIcon />
                     </div>
                 </UserWrapper>
@@ -82,10 +92,12 @@ const Wrapper = styled.header`
     transition: ${transitions.linear_4};
     display: flex;
     align-items: center;
+    box-shadow: ${shadows.shadows_b};
     &.shrink{
         height: ${sizes.header_shrink_h};
-        background-color: ${colors.bg};
+        background-color: rgba(255,255,255,0.9);
     }
+   ;
 `
 const Container = styled.div`
     padding: 0 2rem;
