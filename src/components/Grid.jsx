@@ -8,7 +8,7 @@ const Grid = ({ data }) => {
             <div className="container">
                 <Title text="Popular Products" />
                 <Products>
-                    {data.slice(0, 8).map((item) => {
+                    {data.slice(0, 4).map((item) => {
                         return <CardItem data={item} key={item.id} />
                     })}
                 </Products>

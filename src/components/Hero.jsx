@@ -61,7 +61,7 @@ const Wrapper = styled.section`
     padding-bottom: 100px;
     margin-bottom: 2rem;
     &.override{
-        margin-top: 50px;
+        margin-top: 10px;
     }
     svg{
         width: 30px;
@@ -75,14 +75,14 @@ const Title = styled.div`
     padding-top: 100px;
     padding-bottom: 40px;
     h1{
-        font-size: 4rem;
-        line-height: 4rem;
+        font-size: 3rem;
+        line-height: 3rem;
         color: rgba(226,232,240);
         font-weight: 600;
         text-align: center;
     @media screen and (max-width: ${breakpoints.large}){
-            font-size: 3rem;
-            line-height: 3rem;
+            font-size: 2.5rem;
+            line-height: 2.5rem;
     }
     @media screen and (max-width: ${breakpoints.medium}){
             font-size: 2rem;
@@ -94,7 +94,7 @@ const Title = styled.div`
             letter-spacing: 2px;
             border-top: 1px;
             border-right: 1px;
-            padding: 0.75rem 1.75rem;
+            padding: 0.5rem 1.5rem;
             border-radius: ${bRadius.b_radius_20};
             background-color: ${colors.secondary};
             color: ${colors.white};
@@ -104,7 +104,7 @@ const Title = styled.div`
             gap: 0.4rem;
             box-shadow: 0 4px 6px 1px rgb(0 0 0 / 0.1) , 0 2px 4px 2px rgb(0 0 0 / 0.1);
             font-size: 1rem;
-            margin: 2rem;
+            margin: 0.5rem;
             @media screen and (max-width: ${breakpoints.small}){
                 font-size: 0.8rem;
                 padding: 0.5rem 1.5rem;

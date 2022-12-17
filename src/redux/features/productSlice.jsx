@@ -4,8 +4,11 @@ import axios from "axios"
 
 const initialState = {
     isLoading: false,
+    // đang sale
     onSaleOffs: [],
+    //  bán chạy 
     bestSellers: [],
+    // siêu giảm giá
     bigSaleOffs: [],
     allProducts: [],
 }

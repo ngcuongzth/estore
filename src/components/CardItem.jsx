@@ -1,21 +1,20 @@
 import { formatName, formatPrice } from '../utils/format'
 import styled from 'styled-components/macro';
-import { bRadius, breakpoints, colors, gradient_themes, transitions } from '../styled/variables';
+import { bRadius, breakpoints, colors } from '../styled/variables';
 import Rating from '@mui/material/Rating';
 import { useNavigate } from 'react-router-dom';
-import { CartIcon, BagIcon } from '../utils/icons'
+import { CartIcon, BagIcon, CarIcon } from '../utils/icons'
 
-console.log(CartIcon);
 const CardItem = ({ data }) => {
-    const { id, title, color, image, promotionPercent,
-        originalPrice, salePrice, rating } = data;
+    const { id, title, image, promotionPercent,
+        originalPrice, salePrice, rating, isFreeShip } = data;
     const name = formatName(title);
     const navigate = useNavigate();
     return (
-        <Wrapper onClick={() => {
-            navigate(`/store/product/${id}`)
-        }}>
-            <Thumb>
+        <Wrapper >
+            <Thumb onClick={() => {
+                navigate(`/store/product/${id}`)
+            }}>
                 <img src={image} alt={name} />
             </Thumb>
             <Description>
@@ -37,13 +36,25 @@ const CardItem = ({ data }) => {
                         }
                     </div>
                     <div className="sale-off-price">
-                        <h4>${formatPrice(salePrice)}</h4>
+                        <div className="price">
+                            <h4>${formatPrice(salePrice)}</h4>
+                            <span>
+                                {isFreeShip &&
+                                    <>
+                                        <CarIcon /> Free ship
+                                    </>
+                                }
+
+                            </span>
+                        </div>
                         <ButtonWrapper>
                             <button className='bag'>
                                 <BagIcon />
                                 Add to cart
                             </button>
-                            <button className='cart'>
+                            <button className='cart' onClick={() => {
+                                navigate("/checkout")
+                            }}>
                                 <CartIcon />
                             </button>
                         </ButtonWrapper>
@@ -59,7 +70,6 @@ const Wrapper = styled.div`
     border-radius: ${bRadius.b_radius_10};
     cursor: pointer;
     &:hover{
-        transform: scale(1.05, 1.05);
         background: linear-gradient(225deg,#e6e6e6,#fff);
         box-shadow: -12px 12px 24px #d1d1d1, 12px -12px 24px #fff
     }
@@ -74,6 +84,7 @@ const Thumb = styled.div`
 `
 const Description = styled.div`
 padding: 1rem;
+padding-top: 0;
 h3{
     font-size: 1rem;
     color: ${colors.title};
@@ -101,11 +112,23 @@ const Stars = styled.div`
 `
 
 const Prices = styled.div`
+svg{
+    width: 20px;
+}
+span{
+    display: flex; 
+    align-items: center;
+    gap: 2px;
+    color: ${colors.secondary};
+}
+.price{
+    display: flex;
+    justify-content: space-between;
+}
     .origin-price{
         display: flex;
         gap: 1rem;
     }
-    
     h5{
         font-size: 0.9rem;
         font-weight: 400;
@@ -114,8 +137,7 @@ const Prices = styled.div`
     }
     h4{
        color: ${colors.secondary};
-       font-weight: 600;
-       text-align: right;
+       font-weight: 700;
     }
     p{
         font-size: 0.9rem;
@@ -134,8 +156,12 @@ justify-content: space-between;
             display: flex;
             padding: 5px;
             gap: 2px;
-            border-radius: ${bRadius.b_radius_10};
+            border-radius: ${bRadius.b_radius_20};
             background-color: ${colors.primary};
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: ${colors.text};
                 &:hover{
                 background-color: ${colors.secondary};
@@ -143,6 +169,9 @@ justify-content: space-between;
             svg{
                 color: ${colors.white};
                 width: 20px;
+            }
+            &.cart{
+                width: 2rem;
             }
     }
     `
