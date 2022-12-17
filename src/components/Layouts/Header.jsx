@@ -39,7 +39,7 @@ const Header = () => {
     return (
         <Wrapper className={`${isShrink ? "shrink" : ""}`}>
             <Container className="container">
-                <SidebarBtn onClick={()=>{
+                <SidebarBtn onClick={() => {
                     dispatch(toggleSidebar());
                 }}>
                     <BarsIcon />
@@ -64,12 +64,12 @@ const Header = () => {
                     }}>
                         <SearchIcon />
                     </div>
-                    <div className="user-item" onClick={()=>{
+                    <div className="user-item" onClick={() => {
                         navigate("/login")
                     }}>
                         <UserIcon />
                     </div>
-                    <div className="user-item" onClick={()=>{
+                    <div className="user-item" onClick={() => {
                         navigate("/cart")
                     }}>
                         <CartIcon />
@@ -114,10 +114,17 @@ const Logo = styled.div`
     h1{
         text-shadow: 4px 2px 0px rgb(30 29 39 / 20%), 1px 2px 4px rgb(54 64 158 / 37%);
         color: ${colors.primary};
+        font-size: 2rem;
+         @media screen and (max-width: ${breakpoints.small}){
+        font-size: 1.8rem;
+    }
     }
     img{
         width: 2rem;
         height: 2rem;
+         @media screen and (max-width: ${breakpoints.small}){
+        width: 1.8rem;
+    }
     }
 `
 const Nav = styled.nav`
@@ -160,6 +167,9 @@ gap: 10px;
        &:hover{
         color: ${colors.primary};
        }
+        @media screen and (max-width: ${breakpoints.small}){
+        width: 20px;
+    }
     }
 `
 const SidebarBtn = styled.button`
@@ -174,7 +184,10 @@ const SidebarBtn = styled.button`
        &:hover{
         color: ${colors.primary};
        }
+        @media screen and (max-width: ${breakpoints.small}){
+        width: 20px;
     }
-  
+    }
+
 `
 export default Header

@@ -22,7 +22,6 @@ const Home = () => {
     useEffect(() => {
         dispatch(getProducts());
     }, [])
-
     const { onSaleOffs, bestSellers, bigSaleOffs } = useSelector((state) => {
         return state.products
     })

@@ -18,6 +18,12 @@ import offer_title_3 from '../assets/svg/offer_title_3.gif'
 import offer_title_4 from '../assets/svg/offer_title_4.gif'
 import ad_1 from '../assets/images/ad_1.png'
 import ad_2 from '../assets/images/ad_2.png'
+import ad_3 from '../assets/images/ad_3.png'
+import ad_4 from '../assets/images/ad_4.png'
+import footer_1 from '../assets/images/footer_1.png'
+import footer_2 from '../assets/images/footer_2.png'
+import footer_3 from '../assets/images/footer_3.png'
+import footer_4 from '../assets/images/footer_4.png'
 
 
 
@@ -147,5 +153,150 @@ export const advertisements = {
             desc: "The radiance lives on Nike Sneakers Air Lancing Shoes, the basket ball OG that puts a fresh spin on what you know best: durably stitched overlays, clean finishes and the perfect amount of flash to make you shine.",
             content_btn: "Explore More"
         }
-    }
+    },
+    advertisement_3: {
+        id: 3,
+        img: ad_3,
+        content: {
+            f_title: "FEATURED",
+            s_title: "Nike Adapt BB Pro",
+            desc: "The radiance lives on Nike Sneakers Air Lancing Shoes, the basket ball OG that puts a fresh spin on what you know best: durably stitched overlays, clean finishes and the perfect amount of flash to make you shine.",
+            content_btn: "Explore More"
+        }
+    },
+    advertisement_4: {
+        id: 4,
+        img: ad_4,
+        content: {
+            f_title: "HIGHLIGHTS",
+            s_title: "Air Jordan PR3",
+            desc: "Our Purpose is to move the world forward. We take action by building community, protecting our planet and increasing access to sport.",
+            content_btn: "Explore More"
+        }
+    },
 }
+
+export const footer_contacts = [
+    {
+        id: 1,
+        link: '/',
+        icon: footer_1,
+    },
+    {
+        id: 2,
+        link: '/',
+        icon: footer_2,
+    },
+    {
+        id: 3,
+        link: '/',
+        icon: footer_3,
+    },
+    {
+        id: 4,
+        link: '/',
+        icon: footer_4,
+    }
+]
+
+export const footer_links = [
+    {
+        id: 1,
+        title: "Company",
+        subLinks: [
+            {
+                id: 1,
+                text: "About Us",
+                link: "/"
+            },
+            {
+                id: 2,
+                text: "Press",
+                link: "/"
+            },
+            {
+                id: 3,
+                text: "Support",
+                link: "/"
+            },
+            {
+                id: 4,
+                text: "Contact",
+                link: "/"
+            }
+        ]
+    },
+    {
+        id: 2,
+        title: "Cloneables",
+        subLinks: [
+            {
+                id: 1,
+                text: "All product",
+                link: "/"
+            },
+            {
+                id: 2,
+                text: "Templates",
+                link: "/"
+            },
+            {
+                id: 3,
+                text: "Assets",
+                link: "/"
+            },
+            {
+                id: 4,
+                text: "UI Kits",
+                link: "/"
+            }
+        ]
+    },
+    {
+        id: 3,
+        title: "Resources",
+        subLinks: [
+            {
+                id: 1,
+                text: "Learning centre",
+                link: "/"
+            },
+            {
+                id: 2,
+                text: "Promotion",
+                link: "/"
+            },
+            {
+                id: 3,
+                text: "Inspiration",
+                link: "/"
+            },
+            {
+                id: 4,
+                text: "Videos",
+                link: "/"
+            }
+        ]
+    },
+    {
+        id: 4,
+        title: "Store",
+        subLinks: [
+            {
+                id: 1,
+                text: "View the Store",
+                link: "/"
+            },
+            {
+                id: 2,
+                text: "Forest UI Kit",
+                link: "/"
+            },
+            {
+                id: 3,
+                text: "Otto Template",
+                link: "/"
+            }
+        ]
+    }
+]

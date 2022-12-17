@@ -1,6 +1,6 @@
 import styled from "styled-components/macro"
 import Title from "./Title"
-import { breakpoints, colors, themes } from "../styled/variables"
+import { breakpoints, themes } from "../styled/variables"
 import CardItem from './CardItem'
 const Grid = ({ data }) => {
     return (

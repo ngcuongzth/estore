@@ -59,6 +59,24 @@ const GlobalStyles = createGlobalStyle`
         max-width: ${breakpoints.extra_large};
         margin: 0 auto;
     }
+    .scroll-custom{
+        display: flex;
+        -webkit-box-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        align-items: center;
+        transform: scale(0.9);
+        transition: all 0.3s linear 0s;
+        box-shadow: 0 9px 25px 0 rgb(1 88 198 / 89%);
+        svg{
+            width: 30px;
+            height: 30px;
+        }
+        &:hover{
+            transform: scale(1);
+            box-shadow: rgb(255 0 0 / 30%) 0px 0px 7px 8px;
+        }
+    }
 `
 
 export default GlobalStyles
