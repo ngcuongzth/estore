@@ -50,7 +50,7 @@ export const breakpoints = {
 }
 export const sizes = {
     header_h: "90px",
-    header_shrink_h: "80px",
+    header_shrink_h: "70px",
     header_rp_h: "60px"
 }
 

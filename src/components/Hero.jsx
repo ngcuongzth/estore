@@ -61,7 +61,7 @@ const Wrapper = styled.section`
     padding-bottom: 100px;
     margin-bottom: 2rem;
     &.override{
-        margin-top: 100px;
+        margin-top: 50px;
     }
     svg{
         width: 30px;
@@ -122,7 +122,7 @@ const Title = styled.div`
 
 const Description = styled.div`
     display: grid;
-    grid-template-columns: 2fr 6fr 1fr;
+    grid-template-columns: 2fr 8fr 2fr;
     max-width: 1200px;
     margin: 0 auto;
     width: 90%;
