@@ -1,11 +1,9 @@
 import { useEffect } from "react"
-import { closeSidebar } from "../redux/features/sidebarSlice"
 import VideoPR from "../components/Advertisement/VideoPR"
 import Hero from "../components/Hero"
 import Offer from "../components/Offer"
 import { useDispatch, useSelector } from "react-redux"
 import { getProducts } from "../redux/features/productSlice"
-import Grid from "../components/Grid"
 import { advertisements } from "../utils/constants"
 import ProductPR from "../components/Advertisement/ProductPR"
 import SlideProduct from "../components/SlideProduct"
@@ -16,12 +14,11 @@ const Home = () => {
     const { img: img_2, content: content_2 } = advertisement_2;
     const { f_title: f_title_1, s_title: s_title_1, desc: desc_1, content_btn: content_btn_1 } = content_1;
     const { f_title: f_title_2, s_title: s_title_2, desc: desc_2, content_btn: content_btn_2 } = content_2;
-    useEffect(() => {
-        dispatch(closeSidebar())
-    }, []);
+
     useEffect(() => {
         dispatch(getProducts());
     }, [])
+
     const { onSaleOffs, bestSellers, bigSaleOffs } = useSelector((state) => {
         return state.products
     })

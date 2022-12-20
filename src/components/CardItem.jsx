@@ -4,6 +4,8 @@ import { bRadius, breakpoints, colors } from '../styled/variables';
 import Rating from '@mui/material/Rating';
 import { useNavigate } from 'react-router-dom';
 import { CartIcon, BagIcon, CarIcon } from '../utils/icons'
+import 'react-loading-skeleton/dist/skeleton.css'
+
 
 const CardItem = ({ data }) => {
     const { id, title, image, promotionPercent,
@@ -11,7 +13,7 @@ const CardItem = ({ data }) => {
     const name = formatName(title);
     const navigate = useNavigate();
     return (
-        <Wrapper >
+        <Wrapper>
             <Thumb onClick={() => {
                 navigate(`/store/product/${id}`)
             }}>
@@ -44,7 +46,6 @@ const CardItem = ({ data }) => {
                                         <CarIcon /> Free ship
                                     </>
                                 }
-
                             </span>
                         </div>
                         <ButtonWrapper>
@@ -64,8 +65,7 @@ const CardItem = ({ data }) => {
         </Wrapper>
     )
 }
-
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
     background-color: ${colors.white};
     border-radius: ${bRadius.b_radius_10};
     cursor: pointer;
@@ -74,7 +74,7 @@ const Wrapper = styled.div`
         box-shadow: -12px 12px 24px #d1d1d1, 12px -12px 24px #fff
     }
 `
-const Thumb = styled.div`
+export const Thumb = styled.div`
     img{
         padding: 1rem;
         width: 100%;
@@ -82,7 +82,7 @@ const Thumb = styled.div`
         object-fit: cover;
     }
 `
-const Description = styled.div`
+export const Description = styled.div`
 padding: 1rem;
 padding-top: 0;
 h3{
@@ -91,6 +91,7 @@ h3{
     font-weight: 600;
     letter-spacing: 1px;
     height: 50px;
+    overflow: hidden;
     &:hover{
         color: ${colors.primary};
     }
@@ -149,7 +150,7 @@ span{
     }
 `
 
-const ButtonWrapper = styled.div`
+export const ButtonWrapper = styled.div`
 display: flex;
 justify-content: space-between;
     button{

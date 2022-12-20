@@ -38,7 +38,9 @@ const GlobalStyles = createGlobalStyle`
         font-size: 2rem; // 32px;
         line-height: normal;
     }
-
+    ul, li{
+        list-style-type: none;
+    }
     a{
         text-decoration: none;
         cursor: pointer;

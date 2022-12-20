@@ -6,25 +6,26 @@ import logo from '../../assets/images/logo.png'
 import { UserIcon, CartIcon, CloseIcon } from '../../utils/icons'
 import { useDispatch, useSelector } from "react-redux"
 import { toggleSidebar } from "../../redux/features/sidebarSlice"
+
 const Sidebar = () => {
     const dispatch = useDispatch();
-    const {isOpen}  = useSelector((state)=>{
+    const { isOpen } = useSelector((state) => {
         return state.sidebar;
     })
 
     return (
-        <Wrapper className={`${isOpen ? "active" : ""}`} 
-        onClick={()=>{
-            dispatch(toggleSidebar())
-        }}
+        <Wrapper className={`${isOpen ? "active" : ""}`}
+            onClick={() => {
+                dispatch(toggleSidebar())
+            }}
         >
-            <SidebarWrap onClick={(e)=>{
+            <SidebarWrap onClick={(e) => {
                 e.stopPropagation()
             }}>
-                <CloseBtn onClick={()=>{
+                <CloseBtn onClick={() => {
                     dispatch(toggleSidebar())
                 }}>
-                    <CloseIcon/>
+                    <CloseIcon />
                 </CloseBtn>
                 <Logo>
                     <Link to="/">
@@ -35,18 +36,24 @@ const Sidebar = () => {
                 <SidebarLinks>
                     {navLinks.map((item) => {
                         const { id, title, link, icon: Icon } = item;
-                        return <NavLink key={id} to={link}>
+                        return <NavLink key={id} to={link} onClick={() => {
+                            dispatch(toggleSidebar())
+                        }}>
                             <Icon />
                             {title}
                         </NavLink>
                     })}
                 </SidebarLinks>
                 <UserLinks>
-                    <Link to="/cart">
+                    <Link to="/cart" onClick={() => {
+                        dispatch(toggleSidebar())
+                    }}>
                         <CartIcon />
                         <span>Giỏ hàng</span>
                     </Link>
-                    <Link to="/login">
+                    <Link to="/login" onClick={() => {
+                        dispatch(toggleSidebar())
+                    }}>
                         <UserIcon />
                         <span>Đăng nhập</span>
                     </Link>
@@ -66,7 +73,7 @@ const Wrapper = styled.div`
     background-color: ${colors.overlay};
     backdrop-filter: blur(4px);
     transform: translateX(-100%);
-    transition: ${transitions.linear_6};
+    transition: ${transitions.linear_4};
     &.active{
         transform: translateX(0);
     }

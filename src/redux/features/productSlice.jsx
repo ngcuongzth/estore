@@ -11,7 +11,31 @@ const initialState = {
     // siêu giảm giá
     bigSaleOffs: [],
     allProducts: [],
+    categories: [],
+    filters: {
+        category: {
+            value: "All",
+            label: "All"
+        },
+        color: {
+            value: "All",
+            label: "All"
+        },
+        size: {
+            value: "All",
+            label: "All"
+        }
+    },
+
+
+    displayProducts: [],
+    pagination: {
+        page: 1,
+        products: [],
+    },
+    sort: 'low-to-high'
 }
+
 
 export const getProducts = createAsyncThunk("products/getProducts", async (name, thunkAPI) => {
     try {
@@ -22,7 +46,6 @@ export const getProducts = createAsyncThunk("products/getProducts", async (name,
         return thunkAPI.rejectWithValue("get products failure", error);
     }
 })
-
 const productsSlice = createSlice({
     name: "search",
     initialState: initialState,
@@ -47,6 +70,9 @@ const productsSlice = createSlice({
             }).slice(0, 15)
 
             state.allProducts = action.payload
+            state.displayProducts = action.payload.sort((a, b) => {
+                return a.salePrice - b.salePrice
+            })
             state.onSaleOffs = onSaleOffs
             state.bigSaleOffs = bigSaleOffs
             state.bestSellers = bestSellers
@@ -54,7 +80,99 @@ const productsSlice = createSlice({
         builder.addCase(getProducts.rejected, (state) => {
             state.isLoading = false;
         })
+    },
+    reducers: {
+        updateBrand: (state, action) => {
+            state.filters.category = action.payload;
+            state.displayProducts = state.displayProducts.filter((item) => {
+                if (state.filters.category.value !== "All") {
+                    if (item.category === state.filters.category.value) {
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
+                }
+                if (state.filters.category === "All") {
+                    return true;
+                }
+            })
+        },
+        updateColor: (state, action) => {
+            state.filters.color = action.payload;
+            state.displayProducts = state.allProducts.filter((item) => {
+                if (state.filters.color.value !== "All") {
+                    if (item.color === state.filters.color.value) {
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
+                }
+                if (state.filters.color === "All") {
+                    return true;
+                }
+            })
+        },
+        updateSize: (state, action) => {
+            state.filters.size = action.payload
+            state.displayProducts = state.displayProducts.filter((item) => {
+                if (state.filters.size.value !== "All") {
+                    if (item.size === state.filters.size.value) {
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
+                }
+                if (state.filters.size.value === "All") {
+                    return true
+                }
+            })
+        },
 
+        handleFilter: (state) => {
+
+        }
+        ,
+
+        updateProductPerPage: (state, action) => {
+            state.pagination.products = action.payload
+        },
+        updatePage: (state, action) => {
+            state.pagination.page = action.payload
+        },
+        updateSort: (state, action) => {
+            state.sort = action.payload;
+            state.displayProducts = [...state.displayProducts].sort((a, b) => {
+                if (action.payload === 'low-to-high') {
+                    return a.salePrice - b.salePrice
+                }
+                if (action.payload === 'high-to-low') {
+                    return b.salePrice - a.salePrice
+                }
+            })
+        },
+        setDefaultFilter: (state) => {
+            state.filters = {
+                category: {
+                    value: "All",
+                    label: "All"
+                },
+                color: {
+                    value: "All",
+                    label: "All"
+                },
+                size: {
+                    value: "All",
+                    label: "All"
+                }
+            }
+            state.displayProducts = state.allProducts;
+        }
     }
 })
+
+export const { updateBrand, updateColor, updateSize, updateProductPerPage, updatePage, updateSort
+    , setDefaultFilter, handleFilter } = productsSlice.actions;
 export default productsSlice.reducer

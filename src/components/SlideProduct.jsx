@@ -14,8 +14,14 @@ import styled from "styled-components/macro";
 import { bRadius, colors, themes } from "../styled/variables";
 import CardItem from "./CardItem";
 import Title from "./Title";
+import { useSelector } from "react-redux";
+import CardLoading from "./SkeletonLoading/CardLoading";
 
 const SlideProduct = ({ data, title }) => {
+  const { isLoading } = useSelector((state) => {
+    return state.products
+  })
+  const fakeArrLoading = [1, 2, 3, 4];
   return (
     <Slider>
       <Container className="container">
@@ -48,15 +54,28 @@ const SlideProduct = ({ data, title }) => {
           slidesPerGroupAuto={true}
           modules={[Navigation, Pagination, Scrollbar, Keyboard, Mousewheel]}
         >
-          {data !== undefined &&
-            data.map((item) => {
-              const { id } = item;
-              return (
-                <SwiperSlide key={id}>
-                  <CardItem data={item} />
+          {isLoading ?
+            <>
+              {fakeArrLoading.map((item, index) => {
+                return <SwiperSlide key={index}>
+                  <CardLoading />
                 </SwiperSlide>
-              );
-            })}
+              })}
+            </>
+            :
+            <>
+              {data !== undefined &&
+                data.map((item) => {
+                  const { id } = item;
+                  return (
+                    <SwiperSlide key={id}>
+                      <CardItem data={item} />
+                    </SwiperSlide>
+                  );
+                })}
+            </>
+
+          }
         </Swiper>
       </Container>
     </Slider>
