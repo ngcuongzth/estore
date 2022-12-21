@@ -8,15 +8,15 @@ const Filter = () => {
     const brands = Array.from(new Set(allProducts.map((item) => {
         return item.category
     })))
-    const sizes = ["All", ...Array.from(new Set(allProducts.map((item) => {
+    const sizes = Array.from(new Set(allProducts.map((item) => {
         return item.size
     }))).sort((a, b) => {
         return a - b
-    })]
+    })
     const colors = Array.from(new Set(allProducts.map((item) => {
         return item.color
     })))
-    const newBands = ["All", ...brands].map((item) => {
+    const newBands = [...brands].map((item) => {
         if (item === 1) {
             return {
                 value: 1,
@@ -47,14 +47,8 @@ const Filter = () => {
                 label: 'MLB'
             }
         }
-        else {
-            return {
-                value: "All",
-                label: 'All'
-            }
-        }
     })
-    const newColors = ["All", ...colors].map((item) => {
+    const newColors = [...colors].map((item) => {
         if (item === 'trắng') {
             return {
                 value: "trắng",
@@ -89,12 +83,6 @@ const Filter = () => {
             return {
                 value: "đỏ",
                 label: "Red"
-            }
-        }
-        else {
-            return {
-                value: "All",
-                label: "All"
             }
         }
     })

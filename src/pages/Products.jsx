@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { advertisements } from "../utils/constants"
 import ProductPR from '../components/Advertisement/ProductPR'
 import styled from "styled-components/macro"
-import { getProducts, setDefaultFilter } from '../redux/features/productSlice'
+import { getProducts, setDefaultFilter, updateSize } from '../redux/features/productSlice'
 import Filter from "../components/Filter"
 import GridProducts from '../components/GridProducts'
 import Pagination from "../components/Pagination"
@@ -25,10 +25,9 @@ const Products = () => {
 
 
     useEffect(() => {
-        dispatch(getProducts())
+        dispatch(getProducts());
+        dispatch(setDefaultFilter());
     }, [])
-    console.log(displayProducts.length)
-
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -49,7 +48,7 @@ const Products = () => {
                         <button onClick={() => {
                             dispatch(setDefaultFilter())
                         }}>
-                            Set default
+                            Reset filter
                         </button>
                     </ConfigWrapper>
                     <Sort />

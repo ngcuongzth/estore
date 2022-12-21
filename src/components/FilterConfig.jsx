@@ -1,6 +1,9 @@
 import styled from "styled-components/macro"
 import { bRadius, colors } from "../styled/variables"
 const FilterConfig = ({ name, config }) => {
+    if (!config) {
+        return;
+    }
     return (
         <Wrapper>
             <h6>{name}</h6> :
@@ -8,7 +11,6 @@ const FilterConfig = ({ name, config }) => {
         </Wrapper>
     )
 }
-
 const Wrapper = styled.div`
     display: flex;
     background-color: ${colors.white};

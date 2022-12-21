@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components/macro'
 import { bRadius, colors } from '../styled/variables'
 import { PlusIcon, MinusIcon } from '../utils/icons'
 import { updateBrand, updateColor, updateSize, setDefaultFilter, handleFilter } from '../redux/features/productSlice'
 import { useDispatch, useSelector } from 'react-redux'
 const Category = ({ title, data }) => {
+    // data is selections of menu 
     const [active, setActive] = useState(false);
     const dispatch = useDispatch();
     const { filters, displayProducts } = useSelector((state) => {
@@ -13,11 +14,6 @@ const Category = ({ title, data }) => {
     const toggleActive = () => {
         setActive(!active);
     }
-
-
-    useEffect(() => {
-        dispatch(handleFilter());
-    }, [filters])
 
     let methodAction;
     if (title === "Brand") {
@@ -28,9 +24,6 @@ const Category = ({ title, data }) => {
     }
     if (title === "Size") {
         methodAction = updateSize;
-    }
-    if (title === "All") {
-        methodAction = setDefaultFilter;
     }
     return (
         <Container>

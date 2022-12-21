@@ -14,16 +14,16 @@ const initialState = {
     categories: [],
     filters: {
         category: {
-            value: "All",
-            label: "All"
+            value: null,
+            label: null
         },
         color: {
-            value: "All",
-            label: "All"
+            value: null,
+            label: null
         },
         size: {
-            value: "All",
-            label: "All"
+            value: null,
+            label: null
         }
     },
 
@@ -100,7 +100,7 @@ const productsSlice = createSlice({
         },
         updateColor: (state, action) => {
             state.filters.color = action.payload;
-            state.displayProducts = state.allProducts.filter((item) => {
+            state.displayProducts = state.displayProducts.filter((item) => {
                 if (state.filters.color.value !== "All") {
                     if (item.color === state.filters.color.value) {
                         return true;
@@ -108,9 +108,6 @@ const productsSlice = createSlice({
                     else {
                         return false;
                     }
-                }
-                if (state.filters.color === "All") {
-                    return true;
                 }
             })
         },
@@ -130,12 +127,6 @@ const productsSlice = createSlice({
                 }
             })
         },
-
-        handleFilter: (state) => {
-
-        }
-        ,
-
         updateProductPerPage: (state, action) => {
             state.pagination.products = action.payload
         },
@@ -156,16 +147,16 @@ const productsSlice = createSlice({
         setDefaultFilter: (state) => {
             state.filters = {
                 category: {
-                    value: "All",
-                    label: "All"
+                    value: null,
+                    label: null
                 },
                 color: {
-                    value: "All",
-                    label: "All"
+                    value: null,
+                    label: null
                 },
                 size: {
-                    value: "All",
-                    label: "All"
+                    value: null,
+                    label: null
                 }
             }
             state.displayProducts = state.allProducts;
@@ -174,5 +165,5 @@ const productsSlice = createSlice({
 })
 
 export const { updateBrand, updateColor, updateSize, updateProductPerPage, updatePage, updateSort
-    , setDefaultFilter, handleFilter } = productsSlice.actions;
+    , setDefaultFilter } = productsSlice.actions;
 export default productsSlice.reducer
