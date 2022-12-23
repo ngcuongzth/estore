@@ -12,28 +12,27 @@ const initialState = {
     bigSaleOffs: [],
     allProducts: [],
     categories: [],
-    filters: {
-        category: {
-            value: null,
-            label: null
-        },
-        color: {
-            value: null,
-            label: null
-        },
-        size: {
-            value: null,
-            label: null
-        }
-    },
-
 
     displayProducts: [],
     pagination: {
         page: 1,
         products: [],
     },
-    sort: 'low-to-high'
+    sort: 'low-to-high',
+    filters: {
+        brand: {
+            label: 'All',
+            value: 'All'
+        },
+        color: {
+            label: 'All',
+            value: 'All'
+        },
+        size: {
+            label: 'All',
+            value: 'All'
+        }
+    }
 }
 
 
@@ -82,51 +81,6 @@ const productsSlice = createSlice({
         })
     },
     reducers: {
-        updateBrand: (state, action) => {
-            state.filters.category = action.payload;
-            state.displayProducts = state.displayProducts.filter((item) => {
-                if (state.filters.category.value !== "All") {
-                    if (item.category === state.filters.category.value) {
-                        return true;
-                    }
-                    else {
-                        return false;
-                    }
-                }
-                if (state.filters.category === "All") {
-                    return true;
-                }
-            })
-        },
-        updateColor: (state, action) => {
-            state.filters.color = action.payload;
-            state.displayProducts = state.displayProducts.filter((item) => {
-                if (state.filters.color.value !== "All") {
-                    if (item.color === state.filters.color.value) {
-                        return true;
-                    }
-                    else {
-                        return false;
-                    }
-                }
-            })
-        },
-        updateSize: (state, action) => {
-            state.filters.size = action.payload
-            state.displayProducts = state.displayProducts.filter((item) => {
-                if (state.filters.size.value !== "All") {
-                    if (item.size === state.filters.size.value) {
-                        return true;
-                    }
-                    else {
-                        return false;
-                    }
-                }
-                if (state.filters.size.value === "All") {
-                    return true
-                }
-            })
-        },
         updateProductPerPage: (state, action) => {
             state.pagination.products = action.payload
         },
@@ -144,26 +98,72 @@ const productsSlice = createSlice({
                 }
             })
         },
-        setDefaultFilter: (state) => {
+        updateFilters: (state, action) => {
+            const { name, value, textContent } = action.payload.target;
+            if (name === "brand") {
+                state.filters.brand.label = textContent;
+                state.filters.brand.value = value;
+            }
+            if (name === "color") {
+                state.filters.color.label = textContent;
+                state.filters.color.value = value;
+            }
+            if (name === "size") {
+                state.filters.size.label = textContent;
+                state.filters.size.value = value;
+            }
+        },
+        clearFilters: (state) => {
             state.filters = {
-                category: {
-                    value: null,
-                    label: null
+                brand: {
+                    label: 'All',
+                    value: 'All'
                 },
                 color: {
-                    value: null,
-                    label: null
+                    label: 'All',
+                    value: 'All'
                 },
                 size: {
-                    value: null,
-                    label: null
+                    label: 'All',
+                    value: 'All'
                 }
             }
-            state.displayProducts = state.allProducts;
+        },
+        filterProducts: (state) => {
+            let tempProducts = state.allProducts;
+            const brand = state.filters.brand.value;
+            const color = state.filters.color.value;
+            const size = state.filters.size.value;
+            if (brand !== "All") {
+                tempProducts = tempProducts.filter((product) => {
+                    if (product.category === Number(brand)) {
+                        return true;
+                    }
+                    return false;
+                })
+            }
+            if (size !== "All") {
+                tempProducts = tempProducts.filter((product) => {
+                    if (product.size === Number(size)) {
+                        return true;
+                    }
+                    return false;
+                })
+            }
+            if (color !== "All") {
+                tempProducts = tempProducts.filter((product) => {
+                    if (product.color === color) {
+                        return true;
+                    }
+                    return false;
+                })
+            }
+            state.displayProducts = tempProducts;
         }
     }
 })
 
-export const { updateBrand, updateColor, updateSize, updateProductPerPage, updatePage, updateSort
-    , setDefaultFilter } = productsSlice.actions;
+export const { updateProductPerPage, updatePage, updateSort,
+    updateFilters, clearFilters, filterProducts
+} = productsSlice.actions;
 export default productsSlice.reducer

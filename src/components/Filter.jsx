@@ -1,22 +1,26 @@
 import { useSelector, useDispatch } from "react-redux"
 import styled from "styled-components/macro";
+import { breakpoints, colors } from "../styled/variables";
 import Category from "./Category";
 const Filter = () => {
     const { allProducts } = useSelector((state) => {
         return state.products;
     })
+
     const brands = Array.from(new Set(allProducts.map((item) => {
         return item.category
     })))
-    const sizes = Array.from(new Set(allProducts.map((item) => {
+    const sizes = ["All", ...Array.from(new Set(allProducts.map((item) => {
         return item.size
     }))).sort((a, b) => {
         return a - b
-    })
-    const colors = Array.from(new Set(allProducts.map((item) => {
+    })]
+    const colors = ["All", ...Array.from(new Set(allProducts.map((item) => {
         return item.color
-    })))
-    const newBands = [...brands].map((item) => {
+    })))]
+
+
+    const newBands = ["All", ...brands].map((item) => {
         if (item === 1) {
             return {
                 value: 1,
@@ -45,6 +49,12 @@ const Filter = () => {
             return {
                 value: 5,
                 label: 'MLB'
+            }
+        }
+        if (item === "All") {
+            return {
+                value: 'All',
+                label: 'All'
             }
         }
     })
@@ -85,6 +95,12 @@ const Filter = () => {
                 label: "Red"
             }
         }
+        if (item === "All") {
+            return {
+                value: "All",
+                label: "All"
+            }
+        }
     })
     const newSizes = sizes.map((item) => {
         return {
@@ -95,16 +111,37 @@ const Filter = () => {
 
     return (
         <Wrapper>
-            <Category title="Brand" data={newBands} />
-            <Category title="Color" data={newColors} />
-            <Category title="Size" data={newSizes} />
+            <h4>Filters:</h4>
+            <div className="box">
+                <Category title="Brand" name="brand" data={newBands} />
+                <Category title="Color" name="color" data={newColors} />
+                <Category title="Size" name="size" data={newSizes} />
+            </div>
         </Wrapper>
     )
 }
 
-const Wrapper = styled.aside`
-    display: flex;
-    gap: 1rem;
+const Wrapper = styled.section`
+h4{
+        color: ${colors.text};
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    @media screen and (max-width: ${breakpoints.small}){
+            text-align: center;
+        }
+}
+    .box{
+        display: flex;
+        gap: 1rem;
+        @media screen and (max-width: ${breakpoints.medium}){
+            flex-direction: column;
+        }
+         @media screen and (max-width: ${breakpoints.small}){
+            flex-direction: column;
+            align-items: center;
+        }
+    }
 `
 
 

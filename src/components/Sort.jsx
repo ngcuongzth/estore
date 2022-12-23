@@ -1,5 +1,5 @@
 import styled from "styled-components/macro"
-import { bRadius, colors } from "../styled/variables"
+import { bRadius, breakpoints, colors } from "../styled/variables"
 import { useSelector, useDispatch } from "react-redux"
 import { updateSort } from "../redux/features/productSlice"
 const Sort = () => {
@@ -44,11 +44,17 @@ const Wrapper = styled.div`
     display: flex;
     justify-content: flex-end;
     margin: 1rem 0;
+    @media screen and (max-width: ${breakpoints.small}){
+        justify-content: center;
+    }
 `
 
 const Form = styled.div`
     display: flex;
     gap: 1rem;
+     @media screen and (max-width: ${breakpoints.small}){
+        flex-direction: column;
+    }
     span{
         display: flex;
         align-items: center;

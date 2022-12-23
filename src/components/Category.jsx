@@ -1,30 +1,24 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, } from 'react'
 import styled from 'styled-components/macro'
-import { bRadius, colors } from '../styled/variables'
+import { bRadius, breakpoints, colors } from '../styled/variables'
 import { PlusIcon, MinusIcon } from '../utils/icons'
-import { updateBrand, updateColor, updateSize, setDefaultFilter, handleFilter } from '../redux/features/productSlice'
+import { updateFilters } from '../redux/features/productSlice'
 import { useDispatch, useSelector } from 'react-redux'
-const Category = ({ title, data }) => {
+const Category = ({ title, data, name }) => {
+
     // data is selections of menu 
     const [active, setActive] = useState(false);
     const dispatch = useDispatch();
     const { filters, displayProducts } = useSelector((state) => {
         return state.products;
     })
+
     const toggleActive = () => {
         setActive(!active);
     }
 
-    let methodAction;
-    if (title === "Brand") {
-        methodAction = updateBrand;
-    }
-    if (title === "Color") {
-        methodAction = updateColor;
-    }
-    if (title === "Size") {
-        methodAction = updateSize;
-    }
+
+
     return (
         <Container>
             <Cate>
@@ -42,14 +36,16 @@ const Category = ({ title, data }) => {
             {active &&
                 <List>
                     {data.map((item, index) => {
-                        return <li key={index}
-                            onClick={() => {
-                                dispatch(methodAction(item))
+                        return <button key={index}
+                            value={item.value}
+                            name={name}
+                            onClick={(e) => {
                                 toggleActive();
+                                dispatch(updateFilters(e))
                             }}
                         >
                             {item.label}
-                        </li>
+                        </button>
                     })}
                 </List>
             }
@@ -59,6 +55,10 @@ const Category = ({ title, data }) => {
 const Container = styled.div`
     width: 200px;
     position: relative;
+
+    @media screen and (max-width: ${breakpoints.medium}){
+        width: 50%;
+    }
 `
 const Cate = styled.div`
     font-weight: 500;
@@ -85,14 +85,18 @@ const List = styled.ul`
     border: 1px solid #0f172a17;
     z-index: 10;
     background-color: ${colors.white};
-    li{
+    
+    button{
         padding: 5px 10px;
         cursor: pointer;
         transition: 0.2s linear all;
+        width: 100%;
+        text-align: left;
         &:hover{
             background-color: ${colors.secondary};
             color: ${colors.white};
         }
+       
     }
 `
 

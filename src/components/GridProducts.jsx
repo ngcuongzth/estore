@@ -1,8 +1,9 @@
 import { useSelector } from "react-redux"
 import styled from "styled-components/macro"
 import CardItem from '../components/CardItem'
-import { breakpoints } from "../styled/variables"
+import { bRadius, breakpoints, colors } from "../styled/variables"
 import CardLoading from '../components/SkeletonLoading/CardLoading'
+import important from '../assets/svg/important.svg'
 const GridProducts = () => {
 
     // display 12 products loading skeleton
@@ -11,6 +12,15 @@ const GridProducts = () => {
         return state.products
     })
     const { products } = pagination;
+    if (products.length <= 0) {
+        return <NotFound>
+            <h2>
+                The product you requested could not be found :((
+            </h2>
+            <img src={important} alt="not found" />
+
+        </NotFound>
+    }
     return (
         <Wrapper>
             <Grid>
@@ -31,6 +41,19 @@ const GridProducts = () => {
     )
 }
 
+const NotFound = styled.div`
+    h2{
+        color: ${colors.text};
+        font-weight: 600;
+        margin-top: 3rem;
+        text-align: center;
+    }
+    img{
+        height: 300px;
+        width: 100%;
+        border-radius: ${bRadius.b_radius_10};
+    }
+`
 const Wrapper = styled.div`
     margin: 3rem 0;
     `
