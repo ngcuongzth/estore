@@ -1,6 +1,6 @@
-import { useSelector, useDispatch } from "react-redux"
+import { useSelector } from "react-redux"
 import styled from "styled-components/macro";
-import { breakpoints, colors } from "../styled/variables";
+import { breakpoints, colors } from "../../../styled/variables";
 import Category from "./Category";
 const Filter = () => {
     const { allProducts } = useSelector((state) => {

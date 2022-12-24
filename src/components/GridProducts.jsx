@@ -8,11 +8,11 @@ const GridProducts = () => {
 
     // display 12 products loading skeleton
     const fakeArrLoading = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-    const { displayProducts, isLoading, pagination } = useSelector((state) => {
+    const { isLoading, pagination, search } = useSelector((state) => {
         return state.products
     })
     const { products } = pagination;
-    if (products.length <= 0) {
+    if (products.length <= 0 && search) {
         return <NotFound>
             <h2>
                 The product you requested could not be found :((

@@ -1,5 +1,5 @@
 import styled from "styled-components/macro"
-import { bRadius, colors } from "../styled/variables"
+import { bRadius, colors } from "../../../styled/variables"
 const FilterConfig = ({ name, config }) => {
     if (!config) {
         return;

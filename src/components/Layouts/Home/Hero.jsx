@@ -1,11 +1,11 @@
 import styled from 'styled-components/macro'
-import { themes, colors, bRadius, transitions, breakpoints } from '../styled/variables'
+import { themes, colors, bRadius, transitions, breakpoints } from '../../../styled/variables'
 import { useNavigate } from 'react-router-dom'
-import { heroVideos } from '../utils/constants'
-import { PlayIcon, BagIcon } from '../utils/icons'
-import hero_img from '../assets/images/hero-img.png';
+import { heroVideos } from '../../../utils/constants'
+import { PlayIcon, BagIcon } from '../../../utils/icons'
+import hero_img from '../../../assets/images/hero-img.png';
 import { Link } from 'react-router-dom'
-import { socialLinks } from './../utils/constants';
+import { socialLinks } from '../../../utils/constants';
 
 const Hero = () => {
     const navigate = useNavigate();

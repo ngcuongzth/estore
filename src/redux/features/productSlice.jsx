@@ -31,7 +31,8 @@ const initialState = {
         size: {
             label: 'All',
             value: 'All'
-        }
+        },
+        search: ""
     }
 }
 
@@ -83,6 +84,7 @@ const productsSlice = createSlice({
     reducers: {
         updateProductPerPage: (state, action) => {
             state.pagination.products = action.payload
+            state.pagination.page = 1;
         },
         updatePage: (state, action) => {
             state.pagination.page = action.payload
@@ -114,6 +116,8 @@ const productsSlice = createSlice({
             }
         },
         clearFilters: (state) => {
+            state.displayProducts = state.allProducts;
+            state.search = ""
             state.filters = {
                 brand: {
                     label: 'All',
@@ -159,11 +163,23 @@ const productsSlice = createSlice({
                 })
             }
             state.displayProducts = tempProducts;
+        },
+        searchProduct: (state, action) => {
+            const keywords = action.payload.trim();
+            state.search = keywords;
+            let tempProducts = state.allProducts;
+            tempProducts = tempProducts.filter((prod) => {
+                if (prod.title.toLocaleLowerCase().includes(keywords.toLocaleLowerCase())) {
+                    return true;
+                }
+                return false;
+            })
+            state.displayProducts = tempProducts;
         }
     }
 })
 
 export const { updateProductPerPage, updatePage, updateSort,
-    updateFilters, clearFilters, filterProducts
+    updateFilters, clearFilters, filterProducts, searchProduct
 } = productsSlice.actions;
 export default productsSlice.reducer

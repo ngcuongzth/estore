@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import sidebarSlice from "./features/sidebarSlice";
+import layoutSlice from "./features/layoutSlice";
 import productSlice from "./features/productSlice";
+
+
 const store = configureStore({
     reducer: {
-        sidebar: sidebarSlice,
+        layout: layoutSlice,
         products: productSlice,
     },
     middleware: getDefaultMiddleware =>

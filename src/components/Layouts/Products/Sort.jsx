@@ -1,7 +1,7 @@
 import styled from "styled-components/macro"
-import { bRadius, breakpoints, colors } from "../styled/variables"
+import { bRadius, breakpoints, colors } from "../../../styled/variables"
 import { useSelector, useDispatch } from "react-redux"
-import { updateSort } from "../redux/features/productSlice"
+import { updateSort } from "../../../redux/features/productSlice"
 const Sort = () => {
     const dispatch = useDispatch();
     const { sort, displayProducts } = useSelector((state) => {

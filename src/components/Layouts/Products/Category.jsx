@@ -1,8 +1,8 @@
 import React, { useState, useEffect, } from 'react'
 import styled from 'styled-components/macro'
-import { bRadius, breakpoints, colors } from '../styled/variables'
-import { PlusIcon, MinusIcon } from '../utils/icons'
-import { updateFilters } from '../redux/features/productSlice'
+import { bRadius, breakpoints, colors } from '../../../styled/variables'
+import { PlusIcon, MinusIcon } from '../../../utils/icons'
+import { updateFilters } from '../../../redux/features/productSlice'
 import { useDispatch, useSelector } from 'react-redux'
 const Category = ({ title, data, name }) => {
 

@@ -1,5 +1,5 @@
 import styled from "styled-components/macro"
-import { bRadius, breakpoints, colors } from "../../styled/variables"
+import { bRadius, breakpoints, colors } from "../styled/variables"
 import { Link } from "react-router-dom"
 
 const ProductPR = ({ img, f_title, s_title, desc, content_btn }) => {

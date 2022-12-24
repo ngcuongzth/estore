@@ -5,13 +5,12 @@ import logo from '../../assets/images/logo.png'
 import { navLinks } from '../../utils/constants'
 import { NavLink, useNavigate } from "react-router-dom"
 import { UserIcon, SearchIcon, CartIcon, BarsIcon } from "../../utils/icons"
-import SearchForm from "../SearchForm"
-import { toggleSidebar } from "../../redux/features/sidebarSlice"
+import { toggleSidebar, openSearchForm } from "../../redux/features/layoutSlice"
 import { useDispatch } from "react-redux"
 
 const Header = () => {
     const [isShrink, setIsShrink] = useState(false);
-    const [isOpenForm, setIsOpenForm] = useState(false);
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
     useEffect(() => {
@@ -32,9 +31,6 @@ const Header = () => {
         }
     }, [isShrink])
 
-    const closeSearchForm = () => {
-        setIsOpenForm(false);
-    }
 
     return (
         <Wrapper className={`${isShrink ? "shrink" : ""}`}>
@@ -60,7 +56,7 @@ const Header = () => {
                 </Nav>
                 <UserWrapper>
                     <div className="user-item" onClick={() => {
-                        setIsOpenForm(true);
+                        dispatch(openSearchForm())
                     }}>
                         <SearchIcon />
                     </div>
@@ -75,7 +71,6 @@ const Header = () => {
                         <CartIcon />
                     </div>
                 </UserWrapper>
-                <SearchForm handleClose={closeSearchForm} isOpen={isOpenForm} />
             </Container>
         </Wrapper>
     )

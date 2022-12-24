@@ -1,12 +1,14 @@
 import { useEffect } from "react"
-import VideoPR from "../components/Advertisement/VideoPR"
-import Hero from "../components/Hero"
-import Offer from "../components/Offer"
+import VideoPR from '../components/Layouts/Home/VideoPR'
+import Hero from "../components/Layouts/Home/Hero"
+import Offer from "../components/Layouts/Home/Offer"
 import { useDispatch, useSelector } from "react-redux"
 import { getProducts } from "../redux/features/productSlice"
 import { advertisements } from "../utils/constants"
-import ProductPR from "../components/Advertisement/ProductPR"
+import ProductPR from "../components/ProductPR"
 import SlideProduct from "../components/SlideProduct"
+
+
 const Home = () => {
     const dispatch = useDispatch();
     const { advertisement_1, advertisement_2 } = advertisements;

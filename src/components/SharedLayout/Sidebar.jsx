@@ -5,16 +5,17 @@ import { colors, breakpoints, bRadius, transitions, shadows } from "../../styled
 import logo from '../../assets/images/logo.png'
 import { UserIcon, CartIcon, CloseIcon } from '../../utils/icons'
 import { useDispatch, useSelector } from "react-redux"
-import { toggleSidebar } from "../../redux/features/sidebarSlice"
+import { toggleSidebar } from "../../redux/features/layoutSlice"
+
 
 const Sidebar = () => {
     const dispatch = useDispatch();
-    const { isOpen } = useSelector((state) => {
-        return state.sidebar;
+    const { isSidebarOpen } = useSelector((state) => {
+        return state.layout;
     })
 
     return (
-        <Wrapper className={`${isOpen ? "active" : ""}`}
+        <Wrapper className={`${isSidebarOpen ? "active" : ""}`}
             onClick={() => {
                 dispatch(toggleSidebar())
             }}
@@ -49,13 +50,13 @@ const Sidebar = () => {
                         dispatch(toggleSidebar())
                     }}>
                         <CartIcon />
-                        <span>Giỏ hàng</span>
+                        <span>Cart</span>
                     </Link>
                     <Link to="/login" onClick={() => {
                         dispatch(toggleSidebar())
                     }}>
                         <UserIcon />
-                        <span>Đăng nhập</span>
+                        <span>Login</span>
                     </Link>
                 </UserLinks>
             </SidebarWrap>

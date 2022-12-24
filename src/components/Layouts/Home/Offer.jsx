@@ -1,6 +1,6 @@
 import styled from "styled-components/macro"
-import { bRadius, breakpoints, colors } from "../styled/variables"
-import { offerContents } from "../utils/constants"
+import { bRadius, breakpoints, colors } from "../../../styled/variables"
+import { offerContents } from "../../../utils/constants"
 
 const Offer = () => {
     return (

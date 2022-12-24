@@ -1,11 +1,11 @@
 import styled from "styled-components/macro"
-import { breakpoints } from "../../styled/variables"
-const VideoPR = ({url}) => {
+import { breakpoints } from "../../../styled/variables"
+const VideoPR = ({ url }) => {
   return (
     <Wrapper>
-        <video loop autoPlay playsInline>
-            <source src={url}/>
-        </video>
+      <video loop autoPlay playsInline>
+        <source src={url} />
+      </video>
     </Wrapper>
   )
 }
