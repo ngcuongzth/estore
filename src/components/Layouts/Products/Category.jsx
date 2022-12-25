@@ -1,24 +1,18 @@
-import React, { useState, useEffect, } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components/macro'
 import { bRadius, breakpoints, colors } from '../../../styled/variables'
 import { PlusIcon, MinusIcon } from '../../../utils/icons'
-import { updateFilters } from '../../../redux/features/productSlice'
+import { updateFilters } from '../../../redux/features/filterSlice'
 import { useDispatch, useSelector } from 'react-redux'
 const Category = ({ title, data, name }) => {
 
     // data is selections of menu 
     const [active, setActive] = useState(false);
     const dispatch = useDispatch();
-    const { filters, displayProducts } = useSelector((state) => {
-        return state.products;
-    })
 
     const toggleActive = () => {
         setActive(!active);
     }
-
-
-
     return (
         <Container>
             <Cate>

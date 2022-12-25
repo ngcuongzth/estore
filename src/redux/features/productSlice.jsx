@@ -14,28 +14,7 @@ const initialState = {
     categories: [],
 
     displayProducts: [],
-    pagination: {
-        page: 1,
-        products: [],
-    },
-    sort: 'low-to-high',
-    filters: {
-        brand: {
-            label: 'All',
-            value: 'All'
-        },
-        color: {
-            label: 'All',
-            value: 'All'
-        },
-        size: {
-            label: 'All',
-            value: 'All'
-        },
-        search: ""
-    }
 }
-
 
 export const getProducts = createAsyncThunk("products/getProducts", async (name, thunkAPI) => {
     try {
@@ -47,7 +26,7 @@ export const getProducts = createAsyncThunk("products/getProducts", async (name,
     }
 })
 const productsSlice = createSlice({
-    name: "search",
+    name: "products",
     initialState: initialState,
     extraReducers: (builder) => {
         builder.addCase(getProducts.pending, (state) => {
@@ -81,105 +60,7 @@ const productsSlice = createSlice({
             state.isLoading = false;
         })
     },
-    reducers: {
-        updateProductPerPage: (state, action) => {
-            state.pagination.products = action.payload
-            state.pagination.page = 1;
-        },
-        updatePage: (state, action) => {
-            state.pagination.page = action.payload
-        },
-        updateSort: (state, action) => {
-            state.sort = action.payload;
-            state.displayProducts = [...state.displayProducts].sort((a, b) => {
-                if (action.payload === 'low-to-high') {
-                    return a.salePrice - b.salePrice
-                }
-                if (action.payload === 'high-to-low') {
-                    return b.salePrice - a.salePrice
-                }
-            })
-        },
-        updateFilters: (state, action) => {
-            const { name, value, textContent } = action.payload.target;
-            if (name === "brand") {
-                state.filters.brand.label = textContent;
-                state.filters.brand.value = value;
-            }
-            if (name === "color") {
-                state.filters.color.label = textContent;
-                state.filters.color.value = value;
-            }
-            if (name === "size") {
-                state.filters.size.label = textContent;
-                state.filters.size.value = value;
-            }
-        },
-        clearFilters: (state) => {
-            state.displayProducts = state.allProducts;
-            state.search = ""
-            state.filters = {
-                brand: {
-                    label: 'All',
-                    value: 'All'
-                },
-                color: {
-                    label: 'All',
-                    value: 'All'
-                },
-                size: {
-                    label: 'All',
-                    value: 'All'
-                }
-            }
-        },
-        filterProducts: (state) => {
-            let tempProducts = state.allProducts;
-            const brand = state.filters.brand.value;
-            const color = state.filters.color.value;
-            const size = state.filters.size.value;
-            if (brand !== "All") {
-                tempProducts = tempProducts.filter((product) => {
-                    if (product.category === Number(brand)) {
-                        return true;
-                    }
-                    return false;
-                })
-            }
-            if (size !== "All") {
-                tempProducts = tempProducts.filter((product) => {
-                    if (product.size === Number(size)) {
-                        return true;
-                    }
-                    return false;
-                })
-            }
-            if (color !== "All") {
-                tempProducts = tempProducts.filter((product) => {
-                    if (product.color === color) {
-                        return true;
-                    }
-                    return false;
-                })
-            }
-            state.displayProducts = tempProducts;
-        },
-        searchProduct: (state, action) => {
-            const keywords = action.payload.trim();
-            state.search = keywords;
-            let tempProducts = state.allProducts;
-            tempProducts = tempProducts.filter((prod) => {
-                if (prod.title.toLocaleLowerCase().includes(keywords.toLocaleLowerCase())) {
-                    return true;
-                }
-                return false;
-            })
-            state.displayProducts = tempProducts;
-        }
-    }
+
 })
 
-export const { updateProductPerPage, updatePage, updateSort,
-    updateFilters, clearFilters, filterProducts, searchProduct
-} = productsSlice.actions;
 export default productsSlice.reducer

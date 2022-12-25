@@ -1,33 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import MyPagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import {
-    updateProductPerPage,
-    updatePage,
-} from "../redux/features/productSlice";
+
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { colors } from "../styled/variables";
-const Pagination = ({ data, size }) => {
+import { updateProductsPerPage, updatePage } from "../redux/features/filterSlice";
+const Pagination = ({ test, size }) => {
     const dispatch = useDispatch();
-    const { pagination, displayProducts } = useSelector((state) => {
-        return state.products;
-    });
-    const { page, products } = pagination;
+
+    const { pagination, filteredProducts, sort } = useSelector((state) => {
+        return state.filter;
+    })
+
+    const { page } = pagination;
     let start = (page - 1) * size;
     let end = page * size;
-    const totalPage = Math.ceil(displayProducts.length / size);
+    const totalPage = Math.ceil(filteredProducts.length / size);
 
-    const productPerPage = data.slice(start, end);
+    const productsPerPage = filteredProducts.slice(start, end);
 
-    useEffect(() => {
-        dispatch(updateProductPerPage(productPerPage));
-    }, [page, data]);
 
     const handleChange = (e, value) => {
         dispatch(updatePage(value));
-        dispatch(updateProductPerPage(productPerPage));
     };
+    useEffect(() => {
+        dispatch(
+            updateProductsPerPage(productsPerPage)
+        )
+    }, [filteredProducts, page, sort])
+
     return (
         <Wrapper>
             <Stack spacing={2}>
@@ -36,6 +38,7 @@ const Pagination = ({ data, size }) => {
                     variant="outlined"
                     shape="rounded"
                     onChange={handleChange}
+                    page={page}
                 />
             </Stack>
         </Wrapper>

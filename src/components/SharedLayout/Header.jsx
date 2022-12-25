@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { colors, sizes, transitions, breakpoints, shadows } from '../../styled/variables'
+import { colors, sizes, transitions, breakpoints, shadows, bRadius } from '../../styled/variables'
 import { useEffect, useState } from "react"
 import logo from '../../assets/images/logo.png'
 import { navLinks } from '../../utils/constants'
@@ -65,7 +65,7 @@ const Header = () => {
                     }}>
                         <UserIcon />
                     </div>
-                    <div className="user-item" onClick={() => {
+                    <div className="user-item cart" onClick={() => {
                         navigate("/cart")
                     }}>
                         <CartIcon />
@@ -165,6 +165,33 @@ gap: 10px;
         @media screen and (max-width: ${breakpoints.small}){
         width: 20px;
     }
+    }
+
+    .user-item.cart{
+        position: relative;
+
+        &::before{
+            position: absolute;
+            content: "0";
+            top: 2px;
+            background-color: ${colors.secondary};
+            font-size: 1rem;
+            height: 20px;
+            width: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: ${colors.text};
+            top: -40%;
+            right: -5px;
+            border-radius: 50%;
+
+            @media screen and (max-width: ${breakpoints.small}){
+                font-size: 0.8rem;
+                height: 1rem;
+                width: 1rem;
+            }
+        }
     }
 `
 const SidebarBtn = styled.button`

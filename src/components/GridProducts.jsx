@@ -8,11 +8,15 @@ const GridProducts = () => {
 
     // display 12 products loading skeleton
     const fakeArrLoading = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-    const { isLoading, pagination, search } = useSelector((state) => {
+
+    const { isLoading } = useSelector((state) => {
         return state.products
     })
-    const { products } = pagination;
-    if (products.length <= 0 && search) {
+    const { filteredProducts, search, pagination } = useSelector((state) => {
+        return state.filter;
+    })
+    const { productsPerPage } = pagination;
+    if (filteredProducts.length <= 0 && search) {
         return <NotFound>
             <h2>
                 The product you requested could not be found :((
@@ -30,7 +34,7 @@ const GridProducts = () => {
                     })}</>
                     :
                     <>
-                        {products.map((product) => {
+                        {productsPerPage.map((product) => {
                             return <CardItem key={product.id} data={product} />
                         })}
                     </>

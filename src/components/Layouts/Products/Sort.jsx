@@ -1,13 +1,13 @@
 import styled from "styled-components/macro"
 import { bRadius, breakpoints, colors } from "../../../styled/variables"
 import { useSelector, useDispatch } from "react-redux"
-import { updateSort } from "../../../redux/features/productSlice"
+import { updateSort } from "../../../redux/features/filterSlice"
 const Sort = () => {
     const dispatch = useDispatch();
-    const { sort, displayProducts } = useSelector((state) => {
-        return state.products;
-    })
 
+    const { sort } = useSelector((state) => {
+        return state.filter;
+    })
     const sortList = [
         {
             id: 1,

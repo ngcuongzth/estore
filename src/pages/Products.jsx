@@ -3,21 +3,47 @@ import { useDispatch, useSelector } from "react-redux";
 import { advertisements } from "../utils/constants";
 import ProductPR from "../components/ProductPR";
 import styled from "styled-components/macro";
-
-import {
-  getProducts,
-  clearFilters,
-  filterProducts,
-} from "../redux/features/productSlice";
-
+import { getProducts } from "../redux/features/productSlice";
 import Filter from "../components/Layouts/Products/Filter";
 import GridProducts from "../components/GridProducts";
 import Pagination from "../components/Pagination";
 import Sort from '../components/Layouts/Products/Sort'
 import { bRadius, breakpoints, colors, themes } from "../styled/variables";
 import FilterConfig from "../components/Layouts/Products/FilterConfig";
+import { handleFilter, clearFilters } from "../redux/features/filterSlice";
 
+
+// new updae 
+import { loadProducts } from "../redux/features/filterSlice";
 const Products = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  // get all products 
+  useEffect(() => {
+    dispatch(getProducts());
+  }, [])
+  const { allProducts } = useSelector((state) => {
+    return state.products
+  })
+  // filtered products 
+  const { filteredProducts, filters, search, sort, } = useSelector((state) => {
+    return state.filter;
+  })
+
+  // update products list in filterSlice
+  useEffect(() => {
+    dispatch(loadProducts(allProducts))
+  }, [allProducts])
+
+  // update filterProducts 
+  useEffect(() => {
+    if (!search) {
+      dispatch(handleFilter())
+    }
+  }, [filters, sort])
+
   const { advertisement_3, advertisement_4 } = advertisements;
   const { img: img_3, content: content_3 } = advertisement_3;
   const { img: img_4, content: content_4 } = advertisement_4;
@@ -34,22 +60,7 @@ const Products = () => {
     content_btn: content_btn_4,
   } = content_4;
 
-  const dispatch = useDispatch();
-  const { displayProducts, pagination, filters, search } = useSelector((state) => {
-    return state.products;
-  });
 
-  useEffect(() => {
-    dispatch(getProducts());
-  }, []);
-
-  useEffect(() => {
-    dispatch(filterProducts());
-  }, [filters]);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   return (
     <Wrapper>
@@ -89,7 +100,7 @@ const Products = () => {
           </ClearBtn>
           <Sort />
           <GridProducts />
-          <Pagination data={displayProducts} size={12} />
+          <Pagination filteredProducts={filteredProducts} size={12} />
         </Container>
       </ProductContainter>
       <ProductPR

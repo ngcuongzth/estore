@@ -6,7 +6,7 @@ import { SearchIcon } from '../../utils/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeSearchForm } from '../../redux/features/layoutSlice';
 import { useNavigate } from 'react-router-dom';
-import { searchProduct } from '../../redux/features/productSlice';
+import { searchProduct, clearFilters, updateFilters } from '../../redux/features/filterSlice';
 const SearchForm = () => {
 
     const [value, setValue] = useState("");
@@ -19,6 +19,7 @@ const SearchForm = () => {
     useEffect(() => {
         inputRef.current.focus()
     }, [isSearchFormOpen])
+
     return (
         <Wrapper className={`${isSearchFormOpen ? "active" : ''}`}>
             <Form onSubmit={(e) => {
@@ -27,12 +28,15 @@ const SearchForm = () => {
                 <input className='input-field' value={value} onChange={(e) => {
                     setValue(e.target.value);
                 }} ref={inputRef} />
-                <button className="search-btn" onClick={() => {
-                    dispatch(searchProduct(value))
-                    navigate('/store')
-                    dispatch(closeSearchForm())
-                    setValue("");
-                }} >
+                <button className="search-btn" name='search'
+                    onClick={(e) => {
+                        dispatch(clearFilters())
+                        dispatch(searchProduct(value))
+                        navigate('/store')
+                        dispatch(closeSearchForm())
+                        setValue("");
+                        dispatch(updateFilters(e))
+                    }} >
                     <SearchIcon />
                 </button>
                 <button onClick={() => {
@@ -97,8 +101,11 @@ const Form = styled.form`
         border-radius: ${bRadius.b_radius_10};
         padding: 5px;
     }
+    btn.search-btn{
+        padding: 0;
+    }
     svg{
-        width: 20px;
+        width: 30px;
         color: ${colors.text};
     }
     @media screen and (max-width: ${breakpoints.medium}){
