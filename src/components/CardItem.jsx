@@ -5,6 +5,7 @@ import Rating from '@mui/material/Rating';
 import { useNavigate } from 'react-router-dom';
 import { CartIcon, BagIcon, CarIcon } from '../utils/icons'
 import 'react-loading-skeleton/dist/skeleton.css'
+import Star from './Star';
 
 
 const CardItem = ({ data }) => {
@@ -26,10 +27,11 @@ const CardItem = ({ data }) => {
                         : name
                     }
                 </h3>
-                <Stars>
+                <Star rating={rating} />
+                {/* <Stars>
                     <Rating size='small' name="half-rating-read" readOnly defaultValue={rating.rate} precision={0.5} />
                     <p>{rating.rate} rate</p>
-                </Stars>
+                </Stars> */}
                 <Prices>
                     <div className="origin-price">
                         <h5>${formatPrice(originalPrice)}</h5>
@@ -100,17 +102,17 @@ h3{
     }
     }
 `
-const Stars = styled.div`
-    display: flex;
-    gap: 1rem;
-    p{
-        font-size: 0.9rem;
-        font-weight: 600;
-        color: ${colors.secondary};
-        border-radius: ${bRadius.b_radius_5};
-        padding:1px;
-    }
-`
+// const Stars = styled.div`
+//     display: flex;
+//     gap: 1rem;
+//     p{
+//         font-size: 0.9rem;
+//         font-weight: 600;
+//         color: ${colors.secondary};
+//         border-radius: ${bRadius.b_radius_5};
+//         padding:1px;
+//     }
+// `
 
 const Prices = styled.div`
 svg{

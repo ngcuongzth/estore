@@ -60,7 +60,6 @@ const productsSlice = createSlice({
             state.isLoading = false;
         })
     },
-
 })
 
 export default productsSlice.reducer
