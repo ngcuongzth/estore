@@ -5,14 +5,14 @@ import { transitions, breakpoints } from '../../styled/variables';
 import { SearchIcon } from '../../utils/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeSearchForm } from '../../redux/features/layoutSlice';
-import { useNavigate } from 'react-router-dom';
-import { searchProduct, clearFilters, updateFilters } from '../../redux/features/filterSlice';
+import { handleFilter, changeSearch } from '../../redux/features/filterSlice';
+
+
 const SearchForm = () => {
 
     const [value, setValue] = useState("");
     const inputRef = useRef();
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const { isSearchFormOpen } = useSelector((state) => {
         return state.layout
     })
@@ -22,21 +22,16 @@ const SearchForm = () => {
 
     return (
         <Wrapper className={`${isSearchFormOpen ? "active" : ''}`}>
-            <Form onSubmit={(e) => {
+            <Form value={value} onSubmit={(e) => {
+                dispatch(handleFilter() )
+                dispatch(closeSearchForm());
                 return e.preventDefault();
             }}>
                 <input className='input-field' value={value} onChange={(e) => {
+                dispatch( changeSearch(e.target.value))
                     setValue(e.target.value);
                 }} ref={inputRef} />
-                <button className="search-btn" name='search'
-                    onClick={(e) => {
-                        dispatch(clearFilters())
-                        dispatch(searchProduct(value))
-                        navigate('/store')
-                        dispatch(closeSearchForm())
-                        setValue("");
-                        dispatch(updateFilters(e))
-                    }} >
+                <button type='submit' className="search-btn" name='search'>
                     <SearchIcon />
                 </button>
                 <button onClick={() => {

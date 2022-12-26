@@ -18,11 +18,8 @@ const initialState = {
             label: 'All',
             value: 'All'
         },
-        search: {
-            value: ''
-        }
+        search : null
     },
-    search: null,
     pagination: {
         page: 1,
         productsPerPage: []
@@ -77,6 +74,12 @@ const filterSlice = createSlice({
             }
             state.pagination.page = 1;
         },
+        changeSearch : (state, action)=>{
+            // console.log(state.filters.search)
+            console.log(action.payload)
+            state.filters.search = action.payload;
+        }
+        ,
         // clear filters
         clearFilters: (state) => {
             state.filteredProducts = state.allProducts;
@@ -94,13 +97,13 @@ const filterSlice = createSlice({
                     value: 'All'
                 }
             }
-            state.search = ""
         },
         // handleFilter 
         handleFilter: (state) => {
             const brand = state.filters.brand.value;
             const color = state.filters.color.value;
             const size = state.filters.size.value;
+            const search = state.filters.search;
             let tempProducts = state.allProducts;
 
             if (brand !== "All") {
@@ -128,26 +131,22 @@ const filterSlice = createSlice({
                     return false;
                 })
             }
-            state.filteredProducts = tempProducts;
-        },
-        //search products
-        searchProduct: (state, action) => {
-            const keywords = action.payload.trim();
-            state.search = keywords;
-            let tempProducts = state.allProducts;
-            tempProducts = tempProducts.filter((prod) => {
-                if (prod.title.toLocaleLowerCase().includes(keywords.toLocaleLowerCase())) {
+            if(search){
+                tempProducts  = tempProducts.filter((prod) => {
+                if (prod.title.toLocaleLowerCase().includes(state.filters.search.toLocaleLowerCase())) {
                     return true;
                 }
                 else {
                     return false
                 }
             })
+            }
             state.filteredProducts = tempProducts;
-        }
+        },
 
     }
 })
 export const { loadProducts, updateProductsPerPage, updatePage,
-    updateSort, updateFilters, clearFilters, handleFilter, searchProduct } = filterSlice.actions;
+    updateSort, updateFilters, clearFilters, handleFilter,
+changeSearch } = filterSlice.actions;
 export default filterSlice.reducer
