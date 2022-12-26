@@ -36,7 +36,6 @@ const Container = styled.div`
         gap: 1rem;
     }
 `
-
 const Thumb = styled.div`
     display: flex;
     align-items: center;

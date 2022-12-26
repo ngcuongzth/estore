@@ -28,10 +28,6 @@ const CardItem = ({ data }) => {
                     }
                 </h3>
                 <Star rating={rating} />
-                {/* <Stars>
-                    <Rating size='small' name="half-rating-read" readOnly defaultValue={rating.rate} precision={0.5} />
-                    <p>{rating.rate} rate</p>
-                </Stars> */}
                 <Prices>
                     <div className="origin-price">
                         <h5>${formatPrice(originalPrice)}</h5>
