@@ -28,10 +28,10 @@ const Products = () => {
     return state.products
   })
   // filtered products 
-  const { filteredProducts, filters, search, sort, } = useSelector((state) => {
+  const { filteredProducts, filters, sort, } = useSelector((state) => {
     return state.filter;
   })
-
+  const search = filters.search
   // update products list in filterSlice
   useEffect(() => {
     dispatch(loadProducts(allProducts))
@@ -39,9 +39,7 @@ const Products = () => {
 
   // update filterProducts 
   useEffect(() => {
-    if (!search) {
       dispatch(handleFilter())
-    }
   }, [filters, sort])
 
   const { advertisement_3, advertisement_4 } = advertisements;

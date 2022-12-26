@@ -95,7 +95,8 @@ const filterSlice = createSlice({
                 size: {
                     label: 'All',
                     value: 'All'
-                }
+                },
+                search: null
             }
         },
         // handleFilter 
