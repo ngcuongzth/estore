@@ -11,9 +11,9 @@ const initialState = {
     // siêu giảm giá
     bigSaleOffs: [],
     allProducts: [],
-    categories: [],
-
-    displayProducts: [],
+    singleProduct: {},
+    idSingleProduct: null,
+    isSingleProductLoading: true,
 }
 
 export const getProducts = createAsyncThunk("products/getProducts", async (name, thunkAPI) => {
@@ -25,6 +25,19 @@ export const getProducts = createAsyncThunk("products/getProducts", async (name,
         return thunkAPI.rejectWithValue("get products failure", error);
     }
 })
+
+export const getSingleProduct = createAsyncThunk("products/getSingleProduct",
+    async (name, thunkAPI) => {
+        try {
+            const { idSingleProduct } = thunkAPI.getState().products;
+            const resp = await axios.get(`${productsAPI}/${idSingleProduct}`)
+            return resp.data;
+        }
+        catch (error) {
+            return thunkAPI.rejectWithValue("get single product failure", error);
+        }
+    }
+)
 const productsSlice = createSlice({
     name: "products",
     initialState: initialState,
@@ -59,7 +72,22 @@ const productsSlice = createSlice({
         builder.addCase(getProducts.rejected, (state) => {
             state.isLoading = false;
         })
+        builder.addCase(getSingleProduct.pending, (state) => {
+            state.isSingleProductLoading = true;
+        })
+        builder.addCase(getSingleProduct.fulfilled, (state, action) => {
+            state.isSingleProductLoading = false;
+            state.singleProduct = action.payload;
+        })
+        builder.addCase(getSingleProduct.rejected, (state) => {
+            state.isSingleProductLoading = false;
+        })
     },
+    reducers: {
+        updateIdSingleProduct: (state, action) => {
+            state.idSingleProduct = action.payload
+        }
+    }
 })
-
+export const { updateIdSingleProduct } = productsSlice.actions;
 export default productsSlice.reducer

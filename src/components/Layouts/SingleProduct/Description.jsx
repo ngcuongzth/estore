@@ -1,14 +1,18 @@
 import styled from "styled-components/macro"
 import { colors, breakpoints } from "../../../styled/variables";
-import {formatPrice} from '../../../utils/format'
+import { formatPrice } from '../../../utils/format'
 import Amount from "../../Amount";
 import AddToCart from "./AddToCart";
 import Star from '../../../components/Star'
-const Description = ({data}) => {
-    const {
-        id, color, image, isFreeShip, originalPrice, salePrice, promotionPercent,
-        size, rating, title
-    } = data;
+import { useSelector } from "react-redux";
+
+const Description = ({ data }) => {
+
+  const { title, rating, originalPrice, salePrice, promotionPercent } = data;
+  const { isSingleProductLoading } = useSelector((state) => {
+    return state.products;
+  })
+  console.log(data, title)
 
   return (
     <Wrapper>
@@ -16,41 +20,60 @@ const Description = ({data}) => {
         {title.slice(4)}
       </Title>
       <Desc>Lorem ipsum dolor sit amet consectetur,
-         adipisicing elit. Suscipit est corrupti tenetur assumenda,
-          totam cum eum perspiciatis quas, architecto modi aut ratione
-           culpa! Et nesciunt nisi aliquam consequuntur unde? Tenetur.</Desc>
-           <Star rating={rating}/>
-           <Price>
-            <div className="original">
-                ${formatPrice(originalPrice)}              
-            </div>
-            <div className="sale">
-                ${formatPrice(salePrice)}              
-            </div>
-           </Price>
-           <Amount/>
-           <AddToCart/>
+        adipisicing elit. Suscipit est corrupti tenetur assumenda,
+        totam cum eum perspiciatis quas, architecto modi aut ratione
+        culpa! Et nesciunt nisi aliquam consequuntur unde? Tenetur.</Desc>
+      <Star rating={rating} />
+      <Price>
+        <p className="original">
+          ${formatPrice(originalPrice)}
+        </p>
+        <p className="sale">
+          ${formatPrice(salePrice)}
+        </p>
+      </Price>
+      <Amount />
+      <AddToCart />
     </Wrapper>
+
   )
+
 }
 
-
 const Wrapper = styled.div`
-    
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 `
 
 const Desc = styled.p`
-    color: ${colors.text};
+    color: ${colors.black};
     font-weight: 400;
+    font-size: 0.9rem;
 `
 
 const Price = styled.div`
-    
+    display: flex;
+    gap: 1rem;
+    p{
+      color: ${colors.black};
+      font-weight: 500;
+    }
+    p.original{
+      text-decoration: line-through;
+      font-size: 1rem;
+    }
+    p.sale{
+      color: ${colors.secondary};
+      font-weight: 600;
+      font-size: 1.2rem;
+    }
 `
 
 const Title = styled.h2`
     font-size: 1.5rem;
-    color: ${colors.text};
+    line-height: 1.7rem;
+    color: ${colors.title};
     font-weight: 600;
 `
 export default Description
