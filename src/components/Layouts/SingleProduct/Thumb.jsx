@@ -1,4 +1,4 @@
-import { bRadius } from "../../../styled/variables"
+import { bRadius, breakpoints } from "../../../styled/variables"
 import styled from "styled-components/macro"
 
 const Thumb = ({ img }) => {
@@ -14,6 +14,9 @@ const Wrapper = styled.div`
     width: 400px;
     margin: 0 auto;
     border-radius: ${bRadius.b_radius_10};
+    @media screen and (max-width: ${breakpoints.small}){
+      width: 300px;
+    }
   }
 `
 export default Thumb

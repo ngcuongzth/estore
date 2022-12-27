@@ -1,18 +1,19 @@
 import { formatName, formatPrice } from '../utils/format'
 import styled from 'styled-components/macro';
 import { bRadius, breakpoints, colors } from '../styled/variables';
-import Rating from '@mui/material/Rating';
 import { useNavigate } from 'react-router-dom';
 import { CartIcon, BagIcon, CarIcon } from '../utils/icons'
 import 'react-loading-skeleton/dist/skeleton.css'
 import Star from './Star';
-
+import { addToCartFromCard } from '../redux/features/cartSlice';
+import { useDispatch } from 'react-redux';
 
 const CardItem = ({ data }) => {
     const { id, title, image, promotionPercent,
         originalPrice, salePrice, rating, isFreeShip } = data;
     const name = formatName(title);
     const navigate = useNavigate();
+    const dispatch = useDispatch()
     return (
         <Wrapper>
             <Thumb onClick={() => {
@@ -47,12 +48,19 @@ const CardItem = ({ data }) => {
                             </span>
                         </div>
                         <ButtonWrapper>
-                            <button className='bag'>
+                            <button className='bag'
+                                onClick={() => {
+                                    dispatch(addToCartFromCard({
+                                        id: id,
+                                        infoProduct: data,
+                                    }))
+                                }}
+                            >
                                 <BagIcon />
                                 Add to cart
                             </button>
                             <button className='cart' onClick={() => {
-                                navigate("/checkout")
+                                navigate("/cart")
                             }}>
                                 <CartIcon />
                             </button>
