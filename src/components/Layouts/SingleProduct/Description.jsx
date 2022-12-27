@@ -2,10 +2,9 @@ import styled from "styled-components/macro"
 import { useState } from "react";
 import { colors, breakpoints } from "../../../styled/variables";
 import { formatPrice } from '../../../utils/format'
-import Amount from "../../Amount";
+import Amount from "./Amount";
 import AddToCart from "./AddToCart";
 import Star from '../../../components/Star'
-import { useDispatch } from "react-redux";
 const Description = ({ data }) => {
   const { title, rating, originalPrice, salePrice, id } = data;
   const [amount, setAmount] = useState(1);

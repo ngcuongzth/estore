@@ -1,7 +1,6 @@
 import styled from "styled-components/macro";
-import { bRadius, colors, breakpoints } from "../styled/variables";
-import { PlusIcon, MinusIcon } from "../utils/icons";
-import { useState } from "react";
+import { bRadius, colors, breakpoints } from "../../../styled/variables";
+import { PlusIcon, MinusIcon } from "../../../utils/icons";
 const Amount = ({ increase, decrease, amount }) => {
   return (
     <Wrapper>

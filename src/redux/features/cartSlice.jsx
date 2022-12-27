@@ -11,7 +11,6 @@ const cartSlice = createSlice({
     reducers: {
         addToCartFromCard: (state, action) => {
             const { id, infoProduct } = action.payload;
-            console.log(id, infoProduct);
             const isIncluded = state.cart.find((prod) => {
                 return prod.id === id;
             })
@@ -38,14 +37,14 @@ const cartSlice = createSlice({
                     name: infoProduct.title,
                     amount: 1,
                     image: infoProduct.image,
-                    isFreeShip: infoProduct.isFreeShip
+                    isFreeShip: infoProduct.isFreeShip,
+                    price: infoProduct.salePrice
                 }
                 return { ...state, cart: [...state.cart, newProduct] }
             }
         },
         addToCartFromAmountButton: (state, action) => {
             const { id, infoProduct, amount } = action.payload;
-            console.log(amount)
             const isIncluded = state.cart.find((cart) => {
                 return cart.id === id
             })
@@ -68,12 +67,50 @@ const cartSlice = createSlice({
                     name: infoProduct.title,
                     amount: amount,
                     image: infoProduct.image,
-                    isFreeShip: infoProduct.isFreeShip
+                    isFreeShip: infoProduct.isFreeShip,
+                    price: infoProduct.salePrice
                 }
                 return { ...state, cart: [...state.cart, newProduct] }
+            }
+        },
+        handleAmount: (state, action) => {
+            const { type, id } = action.payload;
+            const newCart = state.cart.map((cart) => {
+                if (cart.id === id) {
+                    if (type === "increase") {
+                        return {
+                            ...cart, amount: cart.amount + 1
+                        }
+                    }
+                    if (type === "decrease") {
+                        let newAmount = cart.amount - 1;
+                        if (newAmount < 1) {
+                            newAmount = 1;
+                        }
+                        return {
+                            ...cart, amount: newAmount
+                        }
+                    }
+                }
+                return cart
+            })
+            return {
+                ...state, cart: newCart
+            }
+        },
+        clearCartItem: (state, action) => {
+            const id = action.payload;
+            const newCart = state.cart.filter((cart) => {
+                if (cart.id === id) {
+                    return false;
+                }
+                return true;
+            })
+            return {
+                ...state, cart: newCart
             }
         }
     },
 })
-export const { addToCartFromCard, addToCartFromAmountButton } = cartSlice.actions;
+export const { addToCartFromCard, addToCartFromAmountButton, handleAmount, clearCartItem } = cartSlice.actions;
 export default cartSlice.reducer
