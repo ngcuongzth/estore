@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux';
 
 const CardItem = ({ data }) => {
     const { id, title, image, promotionPercent,
-        originalPrice, salePrice, rating, isFreeShip } = data;
+        originalPrice, salePrice, rating } = data;
     const name = formatName(title);
     const navigate = useNavigate();
     const dispatch = useDispatch()
@@ -39,13 +39,6 @@ const CardItem = ({ data }) => {
                     <div className="sale-off-price">
                         <div className="price">
                             <h4>${formatPrice(salePrice)}</h4>
-                            <span>
-                                {isFreeShip &&
-                                    <>
-                                        <CarIcon /> Free ship
-                                    </>
-                                }
-                            </span>
                         </div>
                         <ButtonWrapper>
                             <button className='bag'
@@ -60,7 +53,11 @@ const CardItem = ({ data }) => {
                                 Add to cart
                             </button>
                             <button className='cart' onClick={() => {
-                                navigate("/cart")
+                                navigate("/cart");
+                                dispatch(addToCartFromCard({
+                                    id: id,
+                                    infoProduct: data,
+                                }))
                             }}>
                                 <CartIcon />
                             </button>

@@ -18,7 +18,7 @@ const initialState = {
             label: 'All',
             value: 'All'
         },
-        search : null
+        search: ''
     },
     pagination: {
         page: 1,
@@ -74,10 +74,8 @@ const filterSlice = createSlice({
             }
             state.pagination.page = 1;
         },
-        changeSearch : (state, action)=>{
-            // console.log(state.filters.search)
-            console.log(action.payload)
-            state.filters.search = action.payload;
+        changeSearch: (state, action) => {
+            state.filters.search = action.payload.trim();
         }
         ,
         // clear filters
@@ -96,7 +94,7 @@ const filterSlice = createSlice({
                     label: 'All',
                     value: 'All'
                 },
-                search: null
+                search: ""
             }
         },
         // handleFilter 
@@ -106,7 +104,16 @@ const filterSlice = createSlice({
             const size = state.filters.size.value;
             const search = state.filters.search;
             let tempProducts = state.allProducts;
-
+            if (search) {
+                tempProducts = tempProducts.filter((prod) => {
+                    if (prod.title.toLocaleLowerCase().includes(state.filters.search.toLocaleLowerCase())) {
+                        return true;
+                    }
+                    else {
+                        return false
+                    }
+                })
+            }
             if (brand !== "All") {
                 tempProducts = tempProducts.filter((product) => {
                     if (product.category === Number(brand)) {
@@ -132,16 +139,7 @@ const filterSlice = createSlice({
                     return false;
                 })
             }
-            if(search){
-                tempProducts  = tempProducts.filter((prod) => {
-                if (prod.title.toLocaleLowerCase().includes(state.filters.search.toLocaleLowerCase())) {
-                    return true;
-                }
-                else {
-                    return false
-                }
-            })
-            }
+
             state.filteredProducts = tempProducts;
         },
 
@@ -149,5 +147,5 @@ const filterSlice = createSlice({
 })
 export const { loadProducts, updateProductsPerPage, updatePage,
     updateSort, updateFilters, clearFilters, handleFilter,
-changeSearch } = filterSlice.actions;
+    changeSearch } = filterSlice.actions;
 export default filterSlice.reducer

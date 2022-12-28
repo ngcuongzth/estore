@@ -1,18 +1,22 @@
-import styled from "styled-components"
-import { colors, sizes, transitions, breakpoints, shadows, bRadius } from '../../styled/variables'
+import styled from "styled-components/macro"
+import { colors, sizes, transitions, breakpoints, shadows } from '../../styled/variables'
 import { useEffect, useState } from "react"
 import logo from '../../assets/images/logo.png'
 import { navLinks } from '../../utils/constants'
 import { NavLink, useNavigate } from "react-router-dom"
-import { UserIcon, SearchIcon, CartIcon, BarsIcon } from "../../utils/icons"
-import { toggleSidebar, openSearchForm } from "../../redux/features/layoutSlice"
-import { useDispatch } from "react-redux"
+import { UserIcon, CartIcon, BarsIcon } from "../../utils/icons"
+import { toggleSidebar } from "../../redux/features/layoutSlice"
+import { useDispatch, useSelector } from "react-redux"
+
 
 const Header = () => {
     const [isShrink, setIsShrink] = useState(false);
-
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const { totalProducts } = useSelector((state) => {
+        return state.cart;
+    })
+
     useEffect(() => {
         const shrinkHeader = () => {
             if (document.scrollTop > 80 ||
@@ -55,11 +59,7 @@ const Header = () => {
                     })}
                 </Nav>
                 <UserWrapper>
-                    <div className="user-item" onClick={() => {
-                        dispatch(openSearchForm())
-                    }}>
-                        <SearchIcon />
-                    </div>
+
                     <div className="user-item" onClick={() => {
                         navigate("/login")
                     }}>
@@ -69,6 +69,9 @@ const Header = () => {
                         navigate("/cart")
                     }}>
                         <CartIcon />
+                        <div className="cart-total">
+                            {totalProducts}
+                        </div>
                     </div>
                 </UserWrapper>
             </Container>
@@ -170,14 +173,11 @@ gap: 10px;
     .user-item.cart{
         position: relative;
 
-        &::before{
+        .cart-total{
             position: absolute;
-            content: "0";
-            top: 2px;
-            background-color: ${colors.secondary};
-            font-size: 1rem;
-            height: 20px;
-            width: 20px;
+            content: "";
+            width: 25px;
+            height: 25px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -185,6 +185,7 @@ gap: 10px;
             top: -40%;
             right: -5px;
             border-radius: 50%;
+            background-color: red;
 
             @media screen and (max-width: ${breakpoints.small}){
                 font-size: 0.8rem;

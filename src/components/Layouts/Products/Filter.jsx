@@ -1,10 +1,15 @@
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import styled from "styled-components/macro";
-import { breakpoints, colors } from "../../../styled/variables";
+import { bRadius, breakpoints, colors } from "../../../styled/variables";
 import Category from "./Category";
+import { changeSearch } from "../../../redux/features/filterSlice";
 const Filter = () => {
+    const dispatch = useDispatch();
     const { allProducts } = useSelector((state) => {
         return state.products;
+    })
+    const { filters } = useSelector((state) => {
+        return state.filter
     })
 
     const brands = Array.from(new Set(allProducts.map((item) => {
@@ -116,11 +121,39 @@ const Filter = () => {
                 <Category title="Brand" name="brand" data={newBands} />
                 <Category title="Color" name="color" data={newColors} />
                 <Category title="Size" name="size" data={newSizes} />
+                <SearchForm onSubmit={(e) => {
+                    return e.preventDefault();
+                }}>
+                    <input type="text" placeholder="Search..."
+                        onChange={(e) => {
+                            dispatch(changeSearch(e.target.value))
+                        }} value={filters.search} />
+                </SearchForm>
             </div>
         </Wrapper>
     )
 }
 
+const SearchForm = styled.form`
+flex-grow: 1;
+    input{
+        padding: 5px 10px;
+        border-radius: ${bRadius.b_radius_5};
+        font-size: 1rem;
+        width: 100%;
+        max-width: 400px;
+        color: ${colors.title};
+        border: 2px solid #0f172a17;
+        background-color: ${colors.white};
+        outline: none;
+        &:focus{
+            border-color: ${colors.secondary};
+        }
+    }
+    @media screen and (max-width: ${breakpoints.medium}){
+        width: 50%;
+    }
+`
 const Wrapper = styled.section`
 h4{
         color: ${colors.text};

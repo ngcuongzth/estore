@@ -1,9 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    cart: [],
-    totalProduct: 0,
+    cart: localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [],
+    totalProducts: 0,
     totalAmount: 0,
+    shipping_fee: 40000
+    // 40k vnd to usd 
 }
 const cartSlice = createSlice({
     name: 'card',
@@ -26,9 +28,8 @@ const cartSlice = createSlice({
                         return cart
                     }
                 })
-                return {
-                    ...state, cart: tempCart
-                }
+                state.cart = tempCart
+
             }
             // nếu kiểm tra chưa có mặt hàng này
             else {
@@ -40,7 +41,7 @@ const cartSlice = createSlice({
                     isFreeShip: infoProduct.isFreeShip,
                     price: infoProduct.salePrice
                 }
-                return { ...state, cart: [...state.cart, newProduct] }
+                state.cart = [...state.cart, newProduct]
             }
         },
         addToCartFromAmountButton: (state, action) => {
@@ -59,7 +60,7 @@ const cartSlice = createSlice({
                         return cart;
                     }
                 })
-                return { ...state, cart: tempCart }
+                state.cart = tempCart
             }
             else {
                 const newProduct = {
@@ -70,7 +71,7 @@ const cartSlice = createSlice({
                     isFreeShip: infoProduct.isFreeShip,
                     price: infoProduct.salePrice
                 }
-                return { ...state, cart: [...state.cart, newProduct] }
+                state.cart = [...state.cart, newProduct]
             }
         },
         handleAmount: (state, action) => {
@@ -94,9 +95,7 @@ const cartSlice = createSlice({
                 }
                 return cart
             })
-            return {
-                ...state, cart: newCart
-            }
+            state.cart = newCart
         },
         clearCartItem: (state, action) => {
             const id = action.payload;
@@ -106,11 +105,30 @@ const cartSlice = createSlice({
                 }
                 return true;
             })
-            return {
-                ...state, cart: newCart
-            }
+            state.cart = newCart;
+        },
+        clearCart: (state) => {
+            state.cart = []
+        },
+        calcCartTotals: (state) => {
+            const { totalProducts, totalAmount } =
+                state.cart.reduce((total, item) => {
+                    const { amount, price } = item;
+                    total.totalProducts += amount;
+                    total.totalAmount += amount * price;
+                    return total;
+                }, {
+                    totalProducts: 0,
+                    totalAmount: 0
+                })
+
+            state.totalProducts = totalProducts;
+            state.totalAmount = totalAmount;
         }
+
+
     },
 })
-export const { addToCartFromCard, addToCartFromAmountButton, handleAmount, clearCartItem } = cartSlice.actions;
+export const { addToCartFromCard, addToCartFromAmountButton,
+    handleAmount, clearCartItem, clearCart, calcCartTotals } = cartSlice.actions;
 export default cartSlice.reducer

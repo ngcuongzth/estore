@@ -7,6 +7,7 @@ import {
 import GlobleStyles from "./styled/GlobalStyles"
 import SharedLayout from "./components/SharedLayout/SharedLayout"
 
+
 const App = () => {
   return (
     <>

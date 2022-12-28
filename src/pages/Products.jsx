@@ -31,15 +31,15 @@ const Products = () => {
   const { filteredProducts, filters, sort, } = useSelector((state) => {
     return state.filter;
   })
-  const search = filters.search
   // update products list in filterSlice
   useEffect(() => {
     dispatch(loadProducts(allProducts))
   }, [allProducts])
 
   // update filterProducts 
+
   useEffect(() => {
-      dispatch(handleFilter())
+    dispatch(handleFilter())
   }, [filters, sort])
 
   const { advertisement_3, advertisement_4 } = advertisements;
@@ -57,8 +57,6 @@ const Products = () => {
     desc: desc_4,
     content_btn: content_btn_4,
   } = content_4;
-
-
 
   return (
     <Wrapper>
@@ -80,12 +78,6 @@ const Products = () => {
               <FilterConfig name="Size" config={filters.size.label} />
             </div>
           </ConfigWrapper>
-          {search &&
-            <SearchConfig>
-              <h4>Search keywords:</h4>
-              <p>{search}</p>
-            </SearchConfig>
-          }
           <ClearBtn>
             <button
               className="clear-btn"
@@ -130,30 +122,6 @@ margin-top: 1rem;
       background-color: ${colors.secondary};
       color: ${colors.text};
     }
-  }
-`
-const SearchConfig = styled.div`
-  margin-top: 1rem;
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  @media screen and (max-width: ${breakpoints.small}){
-    flex-direction: column;
-  }
-  h4{
-    color: ${colors.text};
-    font-weight: 600;
-    font-size: 1rem;
-  }
-  p{
-     color: ${colors.secondary};
-     display: flex;
-    background-color: ${colors.white};
-    border-radius: ${bRadius.b_radius_20};
-    padding: 5px 10px;
-    gap:2px;
-    min-width: 100px;
-    justify-content: center;
   }
 `
 const Wrapper = styled.main`

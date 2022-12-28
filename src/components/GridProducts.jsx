@@ -12,11 +12,11 @@ const GridProducts = () => {
     const { isLoading } = useSelector((state) => {
         return state.products
     })
-    const { filteredProducts, search, pagination } = useSelector((state) => {
+    const { filteredProducts, filters, pagination } = useSelector((state) => {
         return state.filter;
     })
     const { productsPerPage } = pagination;
-    if (filteredProducts.length <= 0 && search) {
+    if (filteredProducts.length <= 0 && filters.search.trim().length > 0) {
         return <NotFound>
             <h2>
                 The product you requested could not be found :((
