@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import { toast } from "react-toastify";
 const initialState = {
     cart: localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [],
     totalProducts: 0,
@@ -43,6 +43,7 @@ const cartSlice = createSlice({
                 }
                 state.cart = [...state.cart, newProduct]
             }
+            toast.success("Item added to cart ✔️")
         },
         addToCartFromAmountButton: (state, action) => {
             const { id, infoProduct, amount } = action.payload;
@@ -73,6 +74,7 @@ const cartSlice = createSlice({
                 }
                 state.cart = [...state.cart, newProduct]
             }
+            toast.success("Item added to cart! 😃")
         },
         handleAmount: (state, action) => {
             const { type, id } = action.payload;
@@ -106,9 +108,11 @@ const cartSlice = createSlice({
                 return true;
             })
             state.cart = newCart;
+            toast.info("Item deleted from cart! 😃")
         },
         clearCart: (state) => {
             state.cart = []
+            toast.warning("Cart removed! 😥")
         },
         calcCartTotals: (state) => {
             const { totalProducts, totalAmount } =
