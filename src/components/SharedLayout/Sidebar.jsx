@@ -89,7 +89,7 @@ const Wrapper = styled.div`
 `
 const SidebarWrap = styled.aside`
     width: 50%;
-    background-color : ${colors.bg};
+    background-color : ${colors.white};
     height: 100%;
     position: relative;
     box-shadow: ${shadows.shadows_r};

@@ -50,7 +50,14 @@ padding: 2rem 0;
         color: ${colors.white};
         background-color: ${colors.secondary};
         padding: 5px 10px;
-        border-radius: ${bRadius.b_radius_10};
+        border-radius: ${bRadius.b_radius_5};
+        border-color: ${colors.white};
+
+        &:hover{
+            border-color: ${colors.secondary};
+            background-color: ${colors.white};
+            color: ${colors.secondary};
+        }
     }
 `
 

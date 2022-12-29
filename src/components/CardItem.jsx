@@ -145,6 +145,7 @@ span{
     }
     p{
         font-size: 0.9rem;
+        padding: 0 5px;
         color: ${colors.black};
         background-color: ${colors.primary};
         color: ${colors.text};

@@ -54,15 +54,18 @@ flex-direction: column;
 align-items: center;
 margin-bottom: 2rem;
     .no-product{
-        width: 80%;
         margin: 0 auto;
     }
     h4{
         font-size: 2.4rem;
         color: ${colors.title};
         font-weight: 500;
+        text-align: center;
         @media screen and (max-width: ${breakpoints.medium}){
             font-size: 2rem;
+        }
+        @media screen and (max-width: ${breakpoints.small}){
+            font-size: 1.5rem;
         }
     }
     .fill-cart{
@@ -71,8 +74,13 @@ margin-bottom: 2rem;
         border-color: ${colors.white};
         font-size: 1rem;
         text-transform: uppercase;
-        border-radius: ${bRadius.b_radius_10};
+        border-radius: ${bRadius.b_radius_5};
         padding: 5px 10px;
+        &:hover{
+            border-color: ${colors.secondary};
+            background-color: ${colors.white};
+            color: ${colors.secondary};
+        }
         @media screen and (max-width: ${breakpoints.medium}){
             font-size: 0.8rem;
         }
