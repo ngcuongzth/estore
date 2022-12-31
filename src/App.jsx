@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import {
   Home, Products, SingleProduct,
   Cart, Checkout, About, Private,
-  Error
+  Error, AuthWrapper
 } from "./pages"
 import GlobleStyles from "./styled/GlobalStyles"
 import SharedLayout from "./components/SharedLayout/SharedLayout"
@@ -17,21 +17,23 @@ const App = () => {
       cacheLocation='localstorage'
     >
       <GlobleStyles />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<SharedLayout />}>
-            <Route index element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/store" element={<Products />} />
-            <Route path="/store/product/:id" element={<SingleProduct />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="*" element={<Error />} />
-            <Route path="/checkout" element={<Private>
-              <Checkout />
-            </Private>} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <AuthWrapper>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<SharedLayout />}>
+              <Route index element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/store" element={<Products />} />
+              <Route path="/store/product/:id" element={<SingleProduct />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="*" element={<Error />} />
+              <Route path="/checkout" element={<Private>
+                <Checkout />
+              </Private>} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </AuthWrapper>
     </Auth0Provider>
   )
 }

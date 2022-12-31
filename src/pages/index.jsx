@@ -6,8 +6,9 @@ import Checkout from './Checkout'
 import Error from './Error'
 import About from './About'
 import Private from './Private'
+import AuthWrapper from './AuthWrapper'
 
 export {
     Home, Products, SingleProduct, Checkout, Error,
-    Cart, About, Private
+    Cart, About, Private, AuthWrapper
 }
