@@ -5,9 +5,9 @@ import Cart from './Cart'
 import Checkout from './Checkout'
 import Error from './Error'
 import About from './About'
-import Login from './Login'
+import Private from './Private'
 
 export {
     Home, Products, SingleProduct, Checkout, Error,
-    Cart, About, Login
+    Cart, About, Private
 }

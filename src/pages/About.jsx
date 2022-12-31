@@ -23,6 +23,9 @@ const About = () => {
 
 const Wrapper = styled.main`
     padding-top: 100px;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
     .container{
         padding: 3rem 2rem;
         display: grid;

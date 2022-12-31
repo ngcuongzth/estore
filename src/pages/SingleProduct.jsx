@@ -25,6 +25,9 @@ const SingleProduct = () => {
 
 const Wrapper = styled.main`
     padding-top: 100px;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
 `
 
 

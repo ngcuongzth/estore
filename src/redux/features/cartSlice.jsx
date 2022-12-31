@@ -108,7 +108,7 @@ const cartSlice = createSlice({
                 return true;
             })
             state.cart = newCart;
-            toast.info("Item deleted from cart! 😃")
+            toast.success("Item deleted from cart! 😃")
         },
         clearCart: (state) => {
             state.cart = []

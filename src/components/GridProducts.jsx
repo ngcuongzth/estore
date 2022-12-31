@@ -3,7 +3,7 @@ import styled from "styled-components/macro"
 import CardItem from '../components/CardItem'
 import { bRadius, breakpoints, colors } from "../styled/variables"
 import CardLoading from '../components/SkeletonLoading/CardLoading'
-import important from '../assets/svg/important.svg'
+import noProduct from '../assets/images/no_product.png'
 const GridProducts = () => {
 
     // display 12 products loading skeleton
@@ -16,12 +16,12 @@ const GridProducts = () => {
         return state.filter;
     })
     const { productsPerPage } = pagination;
-    if (filteredProducts.length <= 0 && filters.search.trim().length > 0) {
+    if (filteredProducts.length <= 0) {
         return <NotFound>
             <h2>
-                The product you requested could not be found :((
+                No product found
             </h2>
-            <img src={important} alt="not found" />
+            <img src={noProduct} alt="not found" />
 
         </NotFound>
     }
@@ -49,13 +49,14 @@ const NotFound = styled.div`
     h2{
         color: ${colors.text};
         font-weight: 600;
-        margin-top: 3rem;
         text-align: center;
+        margin:  1rem 0 ;
     }
     img{
         height: 300px;
-        width: 100%;
         border-radius: ${bRadius.b_radius_10};
+        object-fit: cover;
+        margin: 0 auto;
     }
 `
 const Wrapper = styled.div`

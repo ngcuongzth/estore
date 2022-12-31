@@ -46,6 +46,9 @@ const Cart = () => {
 
 const Wrapper = styled.main`
     padding-top: 100px;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
     `
 
 const NoProduct = styled.div`

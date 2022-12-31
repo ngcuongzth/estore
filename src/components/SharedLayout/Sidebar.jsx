@@ -3,17 +3,20 @@ import { NavLink, Link } from "react-router-dom"
 import { navLinks } from "../../utils/constants"
 import { colors, breakpoints, bRadius, transitions, shadows } from "../../styled/variables"
 import logo from '../../assets/images/logo.png'
-import { UserIcon, CartIcon, CloseIcon } from '../../utils/icons'
+import { CartIcon, CloseIcon, LoginIcon } from '../../utils/icons'
 import { useDispatch, useSelector } from "react-redux"
 import { toggleSidebar } from "../../redux/features/layoutSlice"
-
+import { useAuth0 } from "@auth0/auth0-react"
 
 const Sidebar = () => {
     const dispatch = useDispatch();
     const { isSidebarOpen } = useSelector((state) => {
         return state.layout;
     })
-
+    const { user } = useSelector((state) => {
+        return state.user;
+    })
+    const { loginWithRedirect, logout } = useAuth0()
     return (
         <Wrapper className={`${isSidebarOpen ? "active" : ""}`}
             onClick={() => {
@@ -46,18 +49,31 @@ const Sidebar = () => {
                     })}
                 </SidebarLinks>
                 <UserLinks>
-                    <Link to="/cart" onClick={() => {
+                    <button to="/cart" onClick={() => {
                         dispatch(toggleSidebar())
                     }}>
                         <CartIcon />
                         <span>Cart</span>
-                    </Link>
-                    <Link to="/login" onClick={() => {
-                        dispatch(toggleSidebar())
-                    }}>
-                        <UserIcon />
-                        <span>Login</span>
-                    </Link>
+                    </button>
+                    {user ?
+                        <button onClick={() => {
+                            logout()
+                            dispatch(toggleSidebar())
+                        }}>
+                            <img src={user.picture} alt={user.name} />
+                            <span>Logout</span>
+                        </button>
+                        :
+                        <button onClick={() => {
+                            loginWithRedirect()
+                            dispatch(toggleSidebar())
+                        }}>
+                            <LoginIcon />
+                            <span>Login</span>
+                        </button>
+
+                    }
+
                 </UserLinks>
             </SidebarWrap>
         </Wrapper>
@@ -78,8 +94,11 @@ const Wrapper = styled.div`
     &.active{
         transform: translateX(0);
     }
-    svg{
+    img, svg{
         width: 30px;
+    }
+    img{
+        border-radius: 50%;
     }
     @media screen and (max-width: ${breakpoints.medium}){
         svg{
@@ -149,7 +168,7 @@ const UserLinks = styled.div`
         gap: 1rem;
         margin-top: 1rem;
     }
-a{
+button{
     padding: 0.5rem 1rem;
         color: ${colors.black};
         font-weight: 500;

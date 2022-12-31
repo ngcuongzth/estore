@@ -1,13 +1,13 @@
 import styled from "styled-components/macro"
-import { colors, sizes, transitions, breakpoints, shadows } from '../../styled/variables'
+import { colors, sizes, transitions, breakpoints, shadows, bRadius } from '../../styled/variables'
 import { useEffect, useState } from "react"
 import logo from '../../assets/images/logo.png'
 import { navLinks } from '../../utils/constants'
 import { NavLink, useNavigate } from "react-router-dom"
-import { UserIcon, CartIcon, BarsIcon } from "../../utils/icons"
+import { CartIcon, BarsIcon, LoginIcon } from "../../utils/icons"
 import { toggleSidebar } from "../../redux/features/layoutSlice"
 import { useDispatch, useSelector } from "react-redux"
-
+import { useAuth0 } from "@auth0/auth0-react"
 
 const Header = () => {
     const [isShrink, setIsShrink] = useState(false);
@@ -16,6 +16,15 @@ const Header = () => {
     const { totalProducts } = useSelector((state) => {
         return state.cart;
     })
+    const [openLogout, setOpenLogout] = useState(false);
+    const toggleLogout = () => {
+        setOpenLogout(!openLogout)
+    }
+    const { user } = useSelector((state) => {
+        return state.user
+    })
+
+    const { loginWithRedirect, logout } = useAuth0()
 
     useEffect(() => {
         const shrinkHeader = () => {
@@ -57,14 +66,14 @@ const Header = () => {
                             {title}
                         </NavLink>
                     })}
+                    {user &&
+                        <NavLink to="/checkout">
+                            Checkout
+                        </NavLink>
+                    }
                 </Nav>
                 <UserWrapper>
 
-                    <div className="user-item" onClick={() => {
-                        navigate("/login")
-                    }}>
-                        <UserIcon />
-                    </div>
                     <div className="user-item cart" onClick={() => {
                         navigate("/cart")
                     }}>
@@ -73,6 +82,28 @@ const Header = () => {
                             {totalProducts}
                         </div>
                     </div>
+                    {user ?
+                        <div className="user-item user-logout" onClick={() => {
+                            toggleLogout()
+                        }}>
+                            <img src={user.picture} alt={user.name} className="user-thumb" />
+                            {user.name}
+                            {openLogout &&
+                                <button className="logout-btn" onClick={() => {
+                                    logout({ returnTo: window.location.origin })
+                                }}>
+                                    Logout
+                                </button>
+                            }
+                        </div>
+                        :
+                        <div className="user-item" onClick={() => {
+                            loginWithRedirect()
+                        }}>
+                            <LoginIcon />
+                            Đăng nhập
+                        </div>
+                    }
                 </UserWrapper>
             </Container>
         </Wrapper>
@@ -157,7 +188,7 @@ const Nav = styled.nav`
 
 const UserWrapper = styled.div`
 display: flex;
-gap: 10px;
+gap: 20px;
     svg{
        width: 30px;
         transition: ${transitions.linear_4};
@@ -169,7 +200,41 @@ gap: 10px;
         width: 20px;
     }
     }
-
+    .user-item{
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        font-weight: 600;
+        display: flex;
+        gap: 5px;
+        position: relative;
+        .logout-btn{
+            position: absolute;
+            bottom: -160%;
+            right: 0;
+            left: 0;
+            font-weight: 600;
+            padding: 5px 10px;
+            border-radius: ${bRadius.b_radius_20};
+            border-color: ${colors.primary};
+            background-color: ${colors.white};
+            color: ${colors.primary};
+            &:hover{
+                background-color: ${colors.primary};
+                color: ${colors.white};
+                border-color: ${colors.white};
+            }
+            
+        }
+        .user-thumb{
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+        }
+        &:hover{
+            color: ${colors.primary};
+        }
+    }
     .user-item.cart{
         position: relative;
 

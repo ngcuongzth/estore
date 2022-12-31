@@ -33,7 +33,7 @@ const Container = styled.div`
 
     @media screen and (max-width: ${breakpoints.large}){
         grid-template-columns: 1fr;
-        gap: 1rem;
+        gap: 2rem;
     }
 `
 const Thumb = styled.div`
@@ -47,6 +47,9 @@ const Thumb = styled.div`
         &:hover{
             transform: rotate(-15deg)
         }
+    @media screen and (max-width: ${breakpoints.large}){
+       width: 80%;
+    }
     }
 `
 const Description = styled.div`

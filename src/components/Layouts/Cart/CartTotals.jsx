@@ -3,12 +3,17 @@ import { formatPrice } from '../../../utils/format'
 import { useSelector } from 'react-redux'
 import { bRadius, colors } from '../../../styled/variables'
 import { useNavigate } from 'react-router-dom'
+import { useAuth0 } from '@auth0/auth0-react'
 const CartTotals = () => {
 
   const navigate = useNavigate();
-  const { totalProducts, totalAmount, shipping_fee } = useSelector((state) => {
+  const { totalAmount, shipping_fee } = useSelector((state) => {
     return state.cart;
   })
+  const { user } = useSelector((state) => {
+    return state.user
+  })
+  const { loginWithPopup } = useAuth0()
   return (
     <Wrapper>
       <div>
@@ -22,14 +27,24 @@ const CartTotals = () => {
           <hr />
           <h4>
             order total :{' '}
-            <span>${formatPrice(totalAmount - shipping_fee)}</span>
+            <span>${formatPrice(totalAmount + shipping_fee)}</span>
           </h4>
         </article>
-        <button onClick={() => {
-          navigate('/checkout')
-        }}>
-          proceed to checkout
-        </button>
+
+        {user ?
+          <button onClick={() => {
+            navigate('/checkout')
+          }}>
+            proceed to checkout
+          </button>
+          :
+          <button onClick={() => {
+            loginWithPopup()
+          }}>
+            login
+          </button>
+
+        }
       </div>
     </Wrapper>
   )
