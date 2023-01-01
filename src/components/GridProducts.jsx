@@ -6,13 +6,14 @@ import CardLoading from '../components/SkeletonLoading/CardLoading'
 import noProduct from '../assets/images/no_product.png'
 const GridProducts = () => {
 
+
     // display 12 products loading skeleton
     const fakeArrLoading = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
     const { isLoading } = useSelector((state) => {
         return state.products
     })
-    const { filteredProducts, filters, pagination } = useSelector((state) => {
+    const { filteredProducts, pagination } = useSelector((state) => {
         return state.filter;
     })
     const { productsPerPage } = pagination;

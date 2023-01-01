@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { colors } from "../styled/variables";
 import { updateProductsPerPage, updatePage } from "../redux/features/filterSlice";
+
+
 const Pagination = ({ test, size }) => {
     const dispatch = useDispatch();
 
@@ -28,6 +30,7 @@ const Pagination = ({ test, size }) => {
         dispatch(
             updateProductsPerPage(productsPerPage)
         )
+        // eslint-disable-next-line
     }, [filteredProducts, page, sort])
 
     return (

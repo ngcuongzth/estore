@@ -4,6 +4,7 @@ import logo from '../../assets/images/logo.png'
 import { footer_contacts, footer_links } from "../../utils/constants";
 import bg from '../../assets/images/footer_bg.jpg';
 import { bRadius, breakpoints, colors } from '../../styled/variables'
+
 const Footer = () => {
     return (
         <Wrapper>
@@ -153,5 +154,4 @@ const Col = styled.div`
 }
 `
 
-const LinkItem = styled.div``
 export default Footer

@@ -24,12 +24,14 @@ const SharedLayout = () => {
         if (isAuthenticated) {
             dispatch(handleLogin(user))
         }
+        // eslint-disable-next-line
     }, [isAuthenticated])
 
 
     useEffect(() => {
         dispatch(calcCartTotals())
         localStorage.setItem('cart', JSON.stringify(cart))
+        // eslint-disable-next-line
     }, [cart])
 
 

@@ -1,6 +1,7 @@
 import styled from "styled-components/macro"
 import Skeleton from "react-loading-skeleton"
 import { bRadius, colors } from "../../styled/variables"
+
 const CardLoading = () => {
     return (
         <Wrapper>
