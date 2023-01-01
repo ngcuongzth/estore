@@ -8,7 +8,6 @@ import { formatPrice } from '../../../utils/format';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { clearCart } from '../../../redux/features/cartSlice'
 import { clearCartAfterPayment } from '../../../redux/features/cartSlice';
 
 const promise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY)
@@ -85,9 +84,10 @@ const CheckoutForm = () => {
             dispatch(clearCartAfterPayment())
             setTimeout(() => {
                 navigate('/')
-            }, 50000000)
+            }, 10000)
         }
     }
+
     return <div>
         {
             succeeded ?
