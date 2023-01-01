@@ -112,8 +112,13 @@ const cartSlice = createSlice({
         },
         clearCart: (state) => {
             state.cart = []
-            toast.warning("Cart removed! 😥")
+            toast.success("Cart removed! 😥")
         },
+        clearCartAfterPayment: (state) => {
+            state.cart = []
+            toast.success("You successfuly ordered! 💖")
+        }
+        ,
         calcCartTotals: (state) => {
             const { totalProducts, totalAmount } =
                 state.cart.reduce((total, item) => {
@@ -134,5 +139,5 @@ const cartSlice = createSlice({
     },
 })
 export const { addToCartFromCard, addToCartFromAmountButton,
-    handleAmount, clearCartItem, clearCart, calcCartTotals } = cartSlice.actions;
+    handleAmount, clearCartItem, clearCart, calcCartTotals, clearCartAfterPayment } = cartSlice.actions;
 export default cartSlice.reducer

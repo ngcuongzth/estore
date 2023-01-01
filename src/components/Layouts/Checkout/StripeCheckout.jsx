@@ -9,8 +9,9 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { clearCart } from '../../../redux/features/cartSlice'
-const promise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY)
+import { clearCartAfterPayment } from '../../../redux/features/cartSlice';
 
+const promise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY)
 const CheckoutForm = () => {
     const dispatch = useDispatch()
     const { cart, totalAmount, shipping_fee } = useSelector((state) => {
@@ -81,7 +82,7 @@ const CheckoutForm = () => {
             setError(null)
             setProcessing(false)
             setSucceeded(true)
-            dispatch(clearCart())
+            dispatch(clearCartAfterPayment())
             setTimeout(() => {
                 navigate('/')
             }, 50000000)
