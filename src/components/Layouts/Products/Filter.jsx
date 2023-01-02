@@ -135,7 +135,7 @@ const Filter = () => {
 }
 
 const SearchForm = styled.form`
-flex-grow: 1;
+    flex-grow: 1;
     input{
         padding: 5px 10px;
         border-radius: ${bRadius.b_radius_5};

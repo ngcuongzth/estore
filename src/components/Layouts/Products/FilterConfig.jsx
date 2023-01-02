@@ -1,5 +1,5 @@
 import styled from "styled-components/macro"
-import { bRadius, colors } from "../../../styled/variables"
+import { bRadius, breakpoints, colors } from "../../../styled/variables"
 const FilterConfig = ({ name, config }) => {
     if (!config) {
         return;
@@ -31,7 +31,9 @@ const Wrapper = styled.div`
         color: ${colors.secondary};
         text-transform: capitalize;
     }
-    
+    /* @media screen and (max-width: ${breakpoints.small}){
+        w
+    } */
 `
 
 export default FilterConfig

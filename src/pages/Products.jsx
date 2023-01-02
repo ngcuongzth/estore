@@ -154,9 +154,9 @@ const ConfigWrapper = styled.div`
     @media screen and (max-width: ${breakpoints.small}) {
       flex-direction: column;
       align-items: center;
-      div {
+      /* div {
         width: 50%;
-      }
+      } */
     }
   }
   button {
