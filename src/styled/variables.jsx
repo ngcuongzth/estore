@@ -49,9 +49,10 @@ export const breakpoints = {
     extra_extra_large: "1400px"
 }
 export const sizes = {
-    header_h: "80px",
-    header_shrink_h: "70px",
-    header_rp_h: "60px"
+    header_h: "70px",
+    header_shrink_h: "65px",
+    header_rp_h: "60px",
+    header_rp_shrink_h: "55px"
 }
 
 export const shadows = {

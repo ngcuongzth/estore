@@ -7,9 +7,10 @@ import { CartIcon, CloseIcon, LoginIcon } from '../../utils/icons'
 import { useDispatch, useSelector } from "react-redux"
 import { toggleSidebar } from "../../redux/features/layoutSlice"
 import { useAuth0 } from "@auth0/auth0-react"
-
+import { useNavigate } from "react-router-dom"
 const Sidebar = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { isSidebarOpen } = useSelector((state) => {
         return state.layout;
     })
@@ -49,8 +50,9 @@ const Sidebar = () => {
                     })}
                 </SidebarLinks>
                 <UserLinks>
-                    <button to="/cart" onClick={() => {
+                    <button onClick={() => {
                         dispatch(toggleSidebar())
+                        navigate('/cart')
                     }}>
                         <CartIcon />
                         <span>Cart</span>

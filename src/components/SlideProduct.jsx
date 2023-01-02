@@ -88,11 +88,20 @@ const Slider = styled.section`
     border-radius: ${bRadius.b_radius_10};
   }
   .swiper-button-next:after, .swiper-button-prev:after{
-    font-size: 1.5rem;
-    padding: 10px;
     border-radius: ${bRadius.b_radius_20};
-    background-color: ${colors.bg};
     color: ${colors.secondary};
+    font-size: 1rem;
+  }
+  .swiper-button-prev, .swiper-button-next{
+    background-color: ${colors.bg};
+      width: 40px;
+    height: 40px;
+     display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 1px solid ${colors.overlay};
   }
 `;
 const Container = styled.div`

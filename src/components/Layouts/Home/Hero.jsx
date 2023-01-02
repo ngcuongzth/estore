@@ -151,8 +151,9 @@ const Videos = styled.div`
     }
 }
 
-.video{
+    .video{
         border-radius: ${bRadius.b_radius_20};
+        overflow: hidden;
         width: 125px;
         height: 125px;
         overflow: hidden;
@@ -179,6 +180,9 @@ const Videos = styled.div`
             img{
                 opacity: 0;
             }
+        }
+        img, video{
+            border-radius: ${bRadius.b_radius_10};
         }
         img{
             width: 100%;

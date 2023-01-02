@@ -97,7 +97,7 @@ const Header = () => {
                             }
                         </div>
                         :
-                        <div className="user-item" onClick={() => {
+                        <div className="user-item user-login" onClick={() => {
                             loginWithRedirect()
                         }}>
                             <LoginIcon />
@@ -126,6 +126,14 @@ const Wrapper = styled.header`
         height: ${sizes.header_shrink_h};
         background-color: rgba(255,255,255,0.9);
     }
+    @media screen and (max-width: ${breakpoints.large}){
+        height: ${sizes.header_rp_h};
+        &.shrink{
+            background-color: rgba(255,255,255,0.9);
+            height: ${sizes.header_rp_shrink_h};
+        }
+    }
+
    ;
 `
 const Container = styled.div`
@@ -144,15 +152,23 @@ const Logo = styled.div`
         text-shadow: 4px 2px 0px rgb(30 29 39 / 20%), 1px 2px 4px rgb(54 64 158 / 37%);
         color: ${colors.primary};
         font-size: 2rem;
+         @media screen and (max-width: ${breakpoints.medium}){
+            font-size: 1.8rem;
+        }
          @media screen and (max-width: ${breakpoints.small}){
-        font-size: 1.8rem;
-    }
+            font-size: 1.6rem;
+        }
     }
     img{
         width: 2rem;
         height: 2rem;
+         @media screen and (max-width: ${breakpoints.medium}){
+            width: 1.8rem;
+            height: 1.8rem;
+    }
          @media screen and (max-width: ${breakpoints.small}){
-        width: 1.8rem;
+            width: 1.6rem;
+            height: 1.6rem;
     }
     }
 `
@@ -188,7 +204,7 @@ const Nav = styled.nav`
 
 const UserWrapper = styled.div`
 display: flex;
-gap: 20px;
+gap: 10px;
     svg{
        width: 30px;
         transition: ${transitions.linear_4};
@@ -206,7 +222,7 @@ gap: 20px;
         cursor: pointer;
         font-weight: 600;
         display: flex;
-        gap: 5px;
+        gap: 3px;
         position: relative;
         .logout-btn{
             position: absolute;
@@ -235,14 +251,24 @@ gap: 20px;
             color: ${colors.primary};
         }
     }
+    @media screen and (max-width: ${breakpoints.large}){
+        .user-login, .user-logout{
+            display: none;
+        }
+    }
     .user-item.cart{
         position: relative;
+        svg{
+            @media screen and (max-width: ${breakpoints.medium}){
+                width: 25px;
+            }
+        }
 
         .cart-total{
             position: absolute;
             content: "";
-            width: 25px;
-            height: 25px;
+            width: 20px;
+            height: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -251,11 +277,11 @@ gap: 20px;
             right: -5px;
             border-radius: 50%;
             background-color: red;
-
-            @media screen and (max-width: ${breakpoints.small}){
-                font-size: 0.8rem;
+             @media screen and (max-width: ${breakpoints.large}){
+                font-size: 0.6rem;
                 height: 1rem;
                 width: 1rem;
+                top: -25%;
             }
         }
     }
@@ -272,6 +298,8 @@ const SidebarBtn = styled.button`
        &:hover{
         color: ${colors.primary};
        }
+        @media screen and (max-width: ${breakpoints.medium}){
+        width: 25px;}
         @media screen and (max-width: ${breakpoints.small}){
         width: 20px;
     }
